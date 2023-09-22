@@ -11,9 +11,13 @@ class MiddleSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-      color: grey,
-      margin: const EdgeInsets.only(left: minimalPadding),
-    ));
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: minimalPadding),
+        decoration: BoxDecoration(
+          color: grey,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
   }
 }

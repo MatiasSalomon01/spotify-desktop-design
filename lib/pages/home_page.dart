@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_desktop/constants/colors.dart';
 import 'package:spotify_desktop/constants/values.dart';
-import 'package:spotify_desktop/widgets/mote_button.dart';
+import 'package:spotify_desktop/widgets/more_button.dart';
 
 import '../widgets/left_side.dart';
 import '../widgets/middle_side.dart';

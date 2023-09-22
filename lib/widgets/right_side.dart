@@ -11,9 +11,13 @@ class RightSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-      color: grey,
-      margin: const EdgeInsets.only(left: minimalPadding),
-    ));
+      child: Container(
+        margin: const EdgeInsets.only(right: minimalPadding),
+        decoration: BoxDecoration(
+          color: grey,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
   }
 }
