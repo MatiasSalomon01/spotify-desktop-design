@@ -33,12 +33,19 @@ class Library extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final List<String> words = ['Playlist', 'Albumes', 'Artistas'];
     return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: minimalPadding + 10,
+        vertical: minimalPadding + 5,
+      ),
       decoration: BoxDecoration(
         color: grey,
         borderRadius: BorderRadius.circular(minimalRadius),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -46,42 +53,65 @@ class Library extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: minimalPadding + 10,
-                      vertical: minimalPadding + 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(
-                        Icons.library_books_outlined,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.library_books_outlined,
+                      color: greyText,
+                    ),
+                    separateHorizontal(10),
+                    const Text(
+                      'Tu Biblioteca',
+                      style: TextStyle(
+                        fontSize: 15,
                         color: greyText,
+                        fontWeight: FontWeight.w600,
                       ),
-                      const Text(
-                        'Tu Biblioteca',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: greyText,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      separateHorizontal(70),
+                    ),
+                    if (size.width > 734) ...[
+                      const Spacer(),
                       const Icon(
                         Icons.add,
                         color: greyText,
                       ),
-                      separateHorizontal(0),
+                      separateHorizontal(20),
                       const Icon(
                         Icons.arrow_forward_rounded,
                         color: greyText,
                       ),
                     ],
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
-          // separateVertical(10),
+          separateVertical(10),
+          SizedBox(
+            height: 30,
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: words.length,
+              itemBuilder: (context, index) {
+                return ElevatedButton(
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(horizontal: 15)),
+                      shape: MaterialStateProperty.all(StadiumBorder()),
+                      backgroundColor: MaterialStateProperty.all(
+                        Color(0xff232323),
+                      )),
+                  onPressed: () {},
+                  child: Text(
+                    words[index],
+                    style: TextStyle(color: white),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => separateHorizontal(10),
+            ),
+          ),
         ],
       ),
     );

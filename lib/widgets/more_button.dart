@@ -18,7 +18,9 @@ class MoreButton extends StatelessWidget {
         child: IconButton(
           splashColor: tranparent,
           splashRadius: .1,
-          onPressed: () {},
+          onPressed: () {
+            print(MediaQuery.of(context).size.width);
+          },
           icon: const Icon(Icons.more_horiz_outlined, color: white),
         ),
       ),
