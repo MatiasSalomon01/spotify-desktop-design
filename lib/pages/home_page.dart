@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
               const MoreButton(headerHeight: headerHeight),
               Expanded(
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     LeftSide(),
                     MiddleSide(),

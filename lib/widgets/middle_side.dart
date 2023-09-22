@@ -15,7 +15,7 @@ class MiddleSide extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: minimalPadding),
         decoration: BoxDecoration(
           color: grey,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(minimalRadius),
         ),
       ),
     );
