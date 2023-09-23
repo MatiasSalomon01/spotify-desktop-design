@@ -162,26 +162,50 @@ class Library extends StatelessWidget {
                         ),
                       ),
                       if (size.width > 1033)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Tus me gusta',
-                              style: TextStyle(
-                                color: white,
-                                fontWeight: FontWeight.w500,
+                        Padding(
+                          padding: const EdgeInsets.only(left: minimalPadding),
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Tus me gusta',
+                                style: TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            // Spacer(),
-                            Text(
-                              'Playlist • 100 canciones',
-                              style: TextStyle(
-                                color: greyText,
-                                fontWeight: FontWeight.w400,
+                              // Spacer(),
+                              separateVertical(5),
+                              Row(
+                                children: [
+                                  if (index == 0) ...[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3),
+                                      child: Transform.rotate(
+                                        angle: .7,
+                                        child: const Icon(
+                                          Icons.push_pin_rounded,
+                                          size: 14,
+                                          color: green,
+                                        ),
+                                      ),
+                                    ),
+                                    separateHorizontal(6),
+                                  ],
+                                  const Text(
+                                    'Playlist • 100 canciones',
+                                    style: TextStyle(
+                                      color: greyText,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                     ],
                   );
