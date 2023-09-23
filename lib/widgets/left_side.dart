@@ -61,15 +61,16 @@ class Library extends StatelessWidget {
                       color: greyText,
                     ),
                     separateHorizontal(10),
-                    const Text(
-                      'Tu Biblioteca',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: greyText,
-                        fontWeight: FontWeight.w600,
+                    if (size.width > 861)
+                      const Text(
+                        'Tu Biblioteca',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: greyText,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    if (size.width > 734) ...[
+                    if (size.width > 1207) ...[
                       const Spacer(),
                       const Icon(
                         Icons.add,
@@ -97,15 +98,15 @@ class Library extends StatelessWidget {
                 return ElevatedButton(
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 15)),
-                      shape: MaterialStateProperty.all(StadiumBorder()),
+                          const EdgeInsets.symmetric(horizontal: 15)),
+                      shape: MaterialStateProperty.all(const StadiumBorder()),
                       backgroundColor: MaterialStateProperty.all(
-                        Color(0xff232323),
+                        const Color(0xff232323),
                       )),
                   onPressed: () {},
                   child: Text(
                     words[index],
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ),
                 );
               },
@@ -125,6 +126,7 @@ class HomeSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       height: 100,
       decoration: BoxDecoration(
@@ -138,14 +140,14 @@ class HomeSearch extends StatelessWidget {
               borderRadius: BorderRadius.circular(minimalRadius),
             ),
             child: Column(
-              children: const [
+              children: [
                 CustomListTile(
                   icon: Icons.home_filled,
-                  title: 'Inicio',
+                  title: size.width > 740 ? 'Inicio' : '',
                 ),
                 CustomListTile(
                   icon: Icons.search,
-                  title: 'Buscar',
+                  title: size.width > 740 ? 'Buscar' : '',
                 )
               ],
             ),

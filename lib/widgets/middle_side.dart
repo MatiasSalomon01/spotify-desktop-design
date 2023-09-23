@@ -11,6 +11,7 @@ class MiddleSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      flex: 3,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: minimalPadding),
         decoration: BoxDecoration(
