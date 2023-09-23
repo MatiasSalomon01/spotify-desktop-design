@@ -139,7 +139,7 @@ class HomeSearch extends StatelessWidget {
               borderRadius: BorderRadius.circular(minimalRadius),
             ),
             child: Column(
-              children: [
+              children: const [
                 CustomListTile(
                   icon: Icons.home_filled,
                   title: 'Inicio',
@@ -157,35 +157,3 @@ class HomeSearch extends StatelessWidget {
     );
   }
 }
-
-// Expanded(
-//       child: Container(
-//         margin: const EdgeInsets.only(left: minimalPadding),
-//         decoration: BoxDecoration(
-//           color: grey,
-//           borderRadius: BorderRadius.circular(minimalRadius),
-//         ),
-//         child: Column(
-//           children: [
-//             Container(
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(minimalRadius),
-//               ),
-//               child: Column(
-//                 children: const [
-//                   CustomListTile(
-//                     icon: Icons.home_filled,
-//                     title: 'Inicio',
-//                   ),
-//                   CustomListTile(
-//                     icon: Icons.search,
-//                     title: 'Buscar',
-//                   )
-//                 ],
-//               ),
-//             ),
-//             // separateVertical(10),
-//           ],
-//         ),
-//       ),
-//     );
