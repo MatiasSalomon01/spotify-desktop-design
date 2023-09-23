@@ -14,7 +14,7 @@ class LeftSide extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width > 1032 ? 275 : 70,
+      width: size.width > 1033 ? 275 : 70,
       margin: const EdgeInsets.only(left: minimalPadding),
       child: Column(
         children: [
@@ -58,9 +58,9 @@ class Library extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.library_books_outlined,
-                      color: size.width < 1032 ? white : greyText,
+                      color: size.width < 1033 ? white : greyText,
                     ),
-                    if (size.width > 1032) ...[
+                    if (size.width > 1033) ...[
                       separateHorizontal(10),
                       const Text(
                         'Tu Biblioteca',
@@ -87,31 +87,32 @@ class Library extends StatelessWidget {
             ),
           ),
           separateVertical(25),
-          SizedBox(
-            height: 30,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: words.length,
-              itemBuilder: (context, index) {
-                return ElevatedButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(horizontal: 15)),
-                      shape: MaterialStateProperty.all(const StadiumBorder()),
-                      backgroundColor: MaterialStateProperty.all(
-                        const Color(0xff232323),
-                      )),
-                  onPressed: () {},
-                  child: Text(
-                    words[index],
-                    style: const TextStyle(color: white),
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => separateHorizontal(10),
+          if (size.width > 1033)
+            Container(
+              height: 30,
+              padding: const EdgeInsets.only(left: minimalPadding + 5),
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: words.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: const Color(0xff232323),
+                    ),
+                    child: Text(
+                      words[index],
+                      style: const TextStyle(
+                          color: white, fontWeight: FontWeight.w600),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => separateHorizontal(10),
+              ),
             ),
-          ),
         ],
       ),
     );

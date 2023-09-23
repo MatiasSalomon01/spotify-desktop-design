@@ -27,13 +27,13 @@ class _CustomListTileState extends State<CustomListTile> {
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: minimalPadding + 12),
         leading: TooltipVisibility(
-          visible: size.width < 1032 ? true : false,
+          visible: size.width < 1033 ? true : false,
           child: Tooltip(
             message: widget.title,
             child: Icon(
               widget.icon,
               size: 25,
-              color: size.width < 1032
+              color: size.width < 1033
                   ? white
                   : isHover
                       ? white
@@ -41,7 +41,7 @@ class _CustomListTileState extends State<CustomListTile> {
             ),
           ),
         ),
-        title: size.width < 1032
+        title: size.width <= 1033
             ? null
             : Text(
                 widget.title,
