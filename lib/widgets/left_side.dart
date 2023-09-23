@@ -11,16 +11,17 @@ class LeftSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(left: minimalPadding),
-        child: Column(
-          children: [
-            const HomeSearch(),
-            separateVertical(10),
-            const Library(),
-          ],
-        ),
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      width: size.width > 1032 ? 275 : 70,
+      margin: const EdgeInsets.only(left: minimalPadding),
+      child: Column(
+        children: [
+          const HomeSearch(),
+          separateVertical(10),
+          const Library(),
+        ],
       ),
     );
   }
@@ -36,10 +37,7 @@ class Library extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final List<String> words = ['Playlist', 'Albumes', 'Artistas'];
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: minimalPadding + 10,
-        vertical: minimalPadding + 5,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: minimalPadding + 10),
       decoration: BoxDecoration(
         color: grey,
         borderRadius: BorderRadius.circular(minimalRadius),
@@ -48,6 +46,8 @@ class Library extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: minimalPadding + 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(minimalRadius),
             ),
@@ -56,12 +56,12 @@ class Library extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.library_books_outlined,
-                      color: greyText,
+                      color: size.width < 1032 ? white : greyText,
                     ),
-                    separateHorizontal(10),
-                    if (size.width > 861)
+                    if (size.width > 1032) ...[
+                      separateHorizontal(10),
                       const Text(
                         'Tu Biblioteca',
                         style: TextStyle(
@@ -70,7 +70,6 @@ class Library extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    if (size.width > 1207) ...[
                       const Spacer(),
                       const Icon(
                         Icons.add,
@@ -81,13 +80,13 @@ class Library extends StatelessWidget {
                         Icons.arrow_forward_rounded,
                         color: greyText,
                       ),
-                    ],
+                    ]
                   ],
                 ),
               ],
             ),
           ),
-          separateVertical(10),
+          separateVertical(25),
           SizedBox(
             height: 30,
             child: ListView.separated(
@@ -143,11 +142,11 @@ class HomeSearch extends StatelessWidget {
               children: [
                 CustomListTile(
                   icon: Icons.home_filled,
-                  title: size.width > 740 ? 'Inicio' : '',
+                  title: 'Inicio',
                 ),
                 CustomListTile(
                   icon: Icons.search,
-                  title: size.width > 740 ? 'Buscar' : '',
+                  title: 'Buscar',
                 )
               ],
             ),
