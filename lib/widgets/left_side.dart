@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_desktop/widgets/recent_button.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
@@ -15,7 +16,8 @@ class LeftSide extends StatelessWidget {
 
     return Container(
       width: size.width > 1033 ? 275 : 70,
-      margin: const EdgeInsets.only(left: minimalPadding),
+      margin:
+          const EdgeInsets.only(left: minimalPadding, bottom: minimalPadding),
       child: Column(
         children: [
           const HomeSearch(),
@@ -113,6 +115,76 @@ class Library extends StatelessWidget {
                 separatorBuilder: (context, index) => separateHorizontal(10),
               ),
             ),
+          separateVertical(12),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: minimalPadding + 10),
+            child: Row(
+              children: [
+                MaterialButton(
+                  hoverColor: const Color(0xff232323),
+                  splashColor: tranparent,
+                  highlightColor: tranparent,
+                  elevation: 0,
+                  shape: const CircleBorder(),
+                  minWidth: 0,
+                  padding: const EdgeInsets.all(12),
+                  onPressed: () {},
+                  child: const Icon(
+                    Icons.search,
+                    color: greyText,
+                  ),
+                ),
+                const Spacer(),
+                const RecentButton(),
+              ],
+            ),
+          ),
+          separateVertical(12),
+          SizedBox(
+            height: 200, //ARREGLAR ESTO XD
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 15,
+              itemBuilder: (context, index) {
+                return Row(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: green,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Tus me gusta',
+                          style: TextStyle(
+                            color: white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        // Spacer(),
+                        Text(
+                          'Playlist • 100 canciones',
+                          style: TextStyle(
+                            color: greyText,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
