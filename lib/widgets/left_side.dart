@@ -7,6 +7,7 @@ import '../constants/colors.dart';
 import '../constants/values.dart';
 import '../services/general_service.dart';
 import 'custom_list_tile.dart';
+import 'custom_material_button.dart';
 
 class LeftSide extends StatelessWidget {
   const LeftSide({
@@ -95,15 +96,10 @@ class Library extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              const Icon(
-                                Icons.add,
-                                color: greyText,
-                              ),
+                              const CustomMaterialButton(icon: Icons.add),
                               separateHorizontal(20),
-                              const Icon(
-                                Icons.arrow_forward_rounded,
-                                color: greyText,
-                              ),
+                              const CustomMaterialButton(
+                                  icon: Icons.arrow_forward_rounded),
                             ]
                           ],
                         ),
@@ -308,23 +304,10 @@ class SearchInLibrary extends StatelessWidget {
       padding: const EdgeInsets.only(
           left: minimalPadding, right: minimalPadding + 5),
       child: Row(
-        children: [
-          MaterialButton(
-            hoverColor: const Color(0xff232323),
-            splashColor: tranparent,
-            highlightColor: tranparent,
-            elevation: 0,
-            shape: const CircleBorder(),
-            minWidth: 0,
-            padding: const EdgeInsets.all(12),
-            onPressed: () {},
-            child: const Icon(
-              Icons.search,
-              color: greyText,
-            ),
-          ),
-          const Spacer(),
-          const RecentButton(),
+        children: const [
+          CustomMaterialButton(icon: Icons.search),
+          Spacer(),
+          RecentButton(),
         ],
       ),
     );
