@@ -146,91 +146,121 @@ class Library extends StatelessWidget {
               ),
               separateVertical(12),
             ],
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
-                shrinkWrap: true,
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.network(
-                          data[index].url,
-                          height: 50,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            return Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                color: greyText.withOpacity(.3),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: child,
-                            );
-                          },
+            const LibraryContent(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LibraryContent extends StatefulWidget {
+  const LibraryContent({
+    super.key,
+  });
+
+  @override
+  State<LibraryContent> createState() => _LibraryContentState();
+}
+
+class _LibraryContentState extends State<LibraryContent> {
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Expanded(
+      child: Scrollbar(
+        controller: _controller,
+        child: ListView.separated(
+          controller: _controller,
+          padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
+          shrinkWrap: true,
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            return Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Image.network(
+                    data[index].url,
+                    height: 50,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      return Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: greyText.withOpacity(.3),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                      ),
-                      if (size.width > 1033)
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: minimalPadding),
-                            child: Column(
-                              // mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  data[index].title,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    color: white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                // Spacer(),
-                                separateVertical(5),
-                                Row(
-                                  children: [
-                                    if (index == 0) ...[
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 3),
-                                        child: Transform.rotate(
-                                          angle: .7,
-                                          child: const Icon(
-                                            Icons.push_pin_rounded,
-                                            size: 14,
-                                            color: green,
-                                          ),
-                                        ),
-                                      ),
-                                      separateHorizontal(6),
-                                    ],
-                                    Text(
-                                      data[index].subTitle,
-                                      style: const TextStyle(
-                                        color: greyText,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                        child: child,
+                      );
+                    },
+                  ),
+                ),
+                if (size.width > 1033)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: minimalPadding),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data[index].title,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
                           ),
-                        ),
-                    ],
-                  );
-                },
-                separatorBuilder: (context, index) => separateVertical(13),
-              ),
-            ),
-          ],
+                          // Spacer(),
+                          separateVertical(5),
+                          Row(
+                            children: [
+                              if (index == 0) ...[
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Transform.rotate(
+                                    angle: .7,
+                                    child: const Icon(
+                                      Icons.push_pin_rounded,
+                                      size: 14,
+                                      color: green,
+                                    ),
+                                  ),
+                                ),
+                                separateHorizontal(6),
+                              ],
+                              Text(
+                                data[index].subTitle,
+                                style: const TextStyle(
+                                  color: greyText,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+          separatorBuilder: (context, index) => separateVertical(13),
         ),
       ),
     );
