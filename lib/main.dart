@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_desktop/constants/colors.dart';
 import 'package:spotify_desktop/pages/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify_desktop/services/scroll_service.dart';
+import 'package:spotify_desktop/services/general_service.dart';
 
 void main() => runApp(const AppState());
 
@@ -14,7 +14,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ScrollService(),
+          create: (context) => GeneralService(),
         )
       ],
       child: const MyApp(),

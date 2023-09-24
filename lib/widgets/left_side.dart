@@ -5,7 +5,7 @@ import 'package:spotify_desktop/widgets/recent_button.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
-import '../services/scroll_service.dart';
+import '../services/general_service.dart';
 import 'custom_list_tile.dart';
 
 class LeftSide extends StatelessWidget {
@@ -42,7 +42,7 @@ class Library extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final List<String> words = ['Playlist', 'Albumes', 'Artistas'];
-    final scrollService = Provider.of<ScrollService>(context);
+    final scrollService = Provider.of<GeneralService>(context);
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: minimalPadding + 10),
@@ -164,7 +164,7 @@ class _LibraryContentState extends State<LibraryContent> {
   late ScrollController _controller;
 
   notifyScrolling() {
-    final service = Provider.of<ScrollService>(context, listen: false);
+    final service = Provider.of<GeneralService>(context, listen: false);
     bool value = service.isScrolling;
 
     if (_controller.offset == 0) {

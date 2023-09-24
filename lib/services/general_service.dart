@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 
-class ScrollService extends ChangeNotifier {
+class GeneralService extends ChangeNotifier {
   bool _isScrolling = false;
 
   bool get isScrolling => _isScrolling;
