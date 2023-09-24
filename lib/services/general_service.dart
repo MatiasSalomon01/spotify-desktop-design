@@ -27,6 +27,15 @@ class GeneralService extends ChangeNotifier {
     _isLibraryExpanded = value;
     notifyListeners();
   }
+
+  bool _isLibraryMin = false;
+
+  bool get isLibraryMin => _isLibraryMin;
+
+  set isLibraryMin(bool value) {
+    _isLibraryMin = value;
+    notifyListeners();
+  }
 }
 
 enum Routes { home, search }

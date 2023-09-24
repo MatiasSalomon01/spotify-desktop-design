@@ -18,7 +18,7 @@ class CustomMaterialButton extends StatelessWidget {
     return Tooltip(
       message: tip,
       child: MaterialButton(
-        hoverColor: const Color(0xff232323),
+        hoverColor: hoverGrey,
         splashColor: tranparent,
         highlightColor: tranparent,
         elevation: 0,

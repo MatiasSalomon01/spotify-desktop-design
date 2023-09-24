@@ -26,7 +26,6 @@ class _CustomListTileState extends State<CustomListTile> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
-
     return MouseRegion(
       onEnter: (event) => setState(() => isHover = true),
       onExit: (event) => setState(() => isHover = false),
@@ -48,7 +47,7 @@ class _CustomListTileState extends State<CustomListTile> {
             ),
           ),
         ),
-        title: size.width <= 1033
+        title: size.width <= 1033 || service.isLibraryMin
             ? null
             : Text(
                 widget.title,

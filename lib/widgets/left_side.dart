@@ -21,9 +21,11 @@ class LeftSide extends StatelessWidget {
     return Container(
       width: service.isLibraryExpanded
           ? 600
-          : size.width > 1033
-              ? 275
-              : 70,
+          : service.isLibraryMin
+              ? 70
+              : size.width > 1033 && !service.isLibraryMin
+                  ? 275
+                  : 70,
       margin:
           const EdgeInsets.only(left: minimalPadding, bottom: minimalPadding),
       child: Column(
@@ -85,11 +87,15 @@ class Library extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.library_books_outlined,
-                              color: greyText,
+                            GestureDetector(
+                              onTap: () =>
+                                  service.isLibraryMin = !service.isLibraryMin,
+                              child: const Icon(
+                                Icons.library_books_outlined,
+                                color: greyText,
+                              ),
                             ),
-                            if (size.width > 1033) ...[
+                            if (size.width > 1033 && !service.isLibraryMin) ...[
                               separateHorizontal(10),
                               const Text(
                                 'Tu Biblioteca',
@@ -123,7 +129,7 @@ class Library extends StatelessWidget {
                     ),
                   ),
                   separateVertical(24),
-                  if (size.width > 1033)
+                  if (size.width > 1033 && !service.isLibraryMin)
                     Row(
                       children: [
                         Container(
@@ -225,101 +231,159 @@ class _LibraryContentState extends State<LibraryContent> {
       child: ListView(
         controller: _controller,
         children: [
-          if (size.width > 1033) ...[
+          if (size.width > 1033 && !service.isLibraryMin) ...[
             if (!service.isLibraryExpanded) const SearchInLibrary(),
             separateVertical(12),
           ],
           Scrollbar(
-            child: ListView.separated(
+            child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
+              // padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: Image.network(
-                            data[index].url,
-                            height: 50,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              return Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: greyText.withOpacity(.3),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: child,
-                              );
-                            },
-                          ),
-                        ),
-                        if (size.width > 1033)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: minimalPadding),
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data[index].title,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      color: white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  // Spacer(),
-                                  separateVertical(5),
-                                  Row(
-                                    children: [
-                                      if (index == 0) ...[
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 3),
-                                          child: Transform.rotate(
-                                            angle: .7,
-                                            child: const Icon(
-                                              Icons.push_pin_rounded,
-                                              size: 14,
-                                              color: green,
-                                            ),
-                                          ),
-                                        ),
-                                        separateHorizontal(6),
-                                      ],
-                                      Text(
-                                        data[index].subTitle,
-                                        style: const TextStyle(
-                                          color: greyText,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
+                return LibraryTile(
+                  data: data[index],
+                  index: index,
                 );
               },
-              separatorBuilder: (context, index) => separateVertical(13),
+              // separatorBuilder: (context, index) => separateVertical(13),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class LibraryTile extends StatefulWidget {
+  final Data data;
+  final int index;
+  const LibraryTile({
+    super.key,
+    required this.data,
+    required this.index,
+  });
+
+  @override
+  State<LibraryTile> createState() => _LibraryTileState();
+}
+
+class _LibraryTileState extends State<LibraryTile> {
+  bool isHover = false;
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
+    return MouseRegion(
+      onEnter: (event) => setState(() => isHover = true),
+      onExit: (event) => setState(() => isHover = false),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isHover ? hoverGrey : tranparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.all(8),
+        margin: size.width < 1033 || service.isLibraryMin
+            ? EdgeInsets.zero
+            : const EdgeInsets.symmetric(horizontal: 8),
+        child: size.width < 1033 || service.isLibraryMin
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Image.network(
+                  widget.data.url,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    return Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: greyText.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: child,
+                    );
+                  },
+                ),
+              )
+            : Column(
+                children: [
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Image.network(
+                          widget.data.url,
+                          height: 50,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            return Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: greyText.withOpacity(.3),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: child,
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: minimalPadding),
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.data.title,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              // Spacer(),
+                              separateVertical(5),
+                              Row(
+                                children: [
+                                  if (widget.index == 0) ...[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3),
+                                      child: Transform.rotate(
+                                        angle: .7,
+                                        child: const Icon(
+                                          Icons.push_pin_rounded,
+                                          size: 14,
+                                          color: green,
+                                        ),
+                                      ),
+                                    ),
+                                    separateHorizontal(6),
+                                  ],
+                                  Text(
+                                    widget.data.subTitle,
+                                    style: const TextStyle(
+                                      color: greyText,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -334,6 +398,7 @@ class SearchInLibrary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<GeneralService>(context);
     return Padding(
       padding: const EdgeInsets.only(
           left: minimalPadding, right: minimalPadding + 5),
