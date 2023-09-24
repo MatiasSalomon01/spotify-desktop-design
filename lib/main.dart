@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_desktop/constants/colors.dart';
 import 'package:spotify_desktop/pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify_desktop/services/scroll_service.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const AppState());
+
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ScrollService(),
+        )
+      ],
+      child: const MyApp(),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

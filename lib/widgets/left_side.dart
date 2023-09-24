@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/models/data.dart';
 import 'package:spotify_desktop/widgets/recent_button.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../services/scroll_service.dart';
 import 'custom_list_tile.dart';
 
 class LeftSide extends StatelessWidget {
@@ -40,6 +42,7 @@ class Library extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final List<String> words = ['Playlist', 'Albumes', 'Artistas'];
+    final scrollService = Provider.of<ScrollService>(context);
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: minimalPadding + 10),
@@ -50,15 +53,17 @@ class Library extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 15),
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                    color: black,
-                  ),
-                ],
+              decoration: BoxDecoration(
+                boxShadow: scrollService.isScrolling
+                    ? [
+                        const BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 15,
+                          spreadRadius: -10,
+                          color: black,
+                        ),
+                      ]
+                    : null,
                 color: grey,
               ),
               child: Column(
@@ -156,7 +161,27 @@ class LibraryContent extends StatefulWidget {
 }
 
 class _LibraryContentState extends State<LibraryContent> {
-  final ScrollController _controller = ScrollController();
+  late ScrollController _controller;
+
+  notifyScrolling() {
+    final service = Provider.of<ScrollService>(context, listen: false);
+    bool value = service.isScrolling;
+
+    if (_controller.offset == 0) {
+      service.isScrolling = false;
+    }
+
+    if (!value) {
+      service.isScrolling = true;
+    }
+  }
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(notifyScrolling);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -170,15 +195,15 @@ class _LibraryContentState extends State<LibraryContent> {
 
     return Expanded(
       child: ListView(
+        controller: _controller,
         children: [
           if (size.width > 1033) ...[
             const SearchInLibrary(),
             separateVertical(12),
           ],
           Scrollbar(
-            controller: _controller,
             child: ListView.separated(
-              controller: _controller,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
               shrinkWrap: true,
               itemCount: data.length,
