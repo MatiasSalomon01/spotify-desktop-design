@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class GeneralService extends ChangeNotifier {
@@ -10,4 +9,15 @@ class GeneralService extends ChangeNotifier {
     _isScrolling = value;
     notifyListeners();
   }
+
+  Routes _currentRoute = Routes.home;
+
+  Routes get currentRoute => _currentRoute;
+
+  set currentRoute(Routes value) {
+    _currentRoute = value;
+    notifyListeners();
+  }
 }
+
+enum Routes { home, search }

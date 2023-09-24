@@ -42,7 +42,7 @@ class Library extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final List<String> words = ['Playlist', 'Albumes', 'Artistas'];
-    final scrollService = Provider.of<GeneralService>(context);
+    final service = Provider.of<GeneralService>(context);
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: minimalPadding + 10),
@@ -54,7 +54,7 @@ class Library extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                boxShadow: scrollService.isScrolling
+                boxShadow: service.isScrolling
                     ? [
                         const BoxShadow(
                           offset: Offset(0, 10),
@@ -80,9 +80,9 @@ class Library extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.library_books_outlined,
-                              color: size.width < 1033 ? white : greyText,
+                              color: greyText,
                             ),
                             if (size.width > 1033) ...[
                               separateHorizontal(10),
@@ -356,10 +356,12 @@ class HomeSearch extends StatelessWidget {
                 CustomListTile(
                   icon: Icons.home_filled,
                   title: 'Inicio',
+                  route: Routes.home,
                 ),
                 CustomListTile(
                   icon: Icons.search,
                   title: 'Buscar',
+                  route: Routes.search,
                 )
               ],
             ),
