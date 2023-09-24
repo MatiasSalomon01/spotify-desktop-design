@@ -13,7 +13,11 @@ class MiddleSide extends StatelessWidget {
     return Expanded(
       flex: 3,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: minimalPadding),
+        margin: const EdgeInsets.only(
+          left: minimalPadding,
+          right: minimalPadding,
+          bottom: minimalPadding,
+        ),
         decoration: BoxDecoration(
           color: grey,
           borderRadius: BorderRadius.circular(minimalRadius),
