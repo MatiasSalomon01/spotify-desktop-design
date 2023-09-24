@@ -88,8 +88,12 @@ class Library extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
-                              onTap: () =>
-                                  service.isLibraryMin = !service.isLibraryMin,
+                              onTap: () {
+                                service.isLibraryMin = !service.isLibraryMin;
+                                if (service.isLibraryExpanded) {
+                                  service.isLibraryExpanded = false;
+                                }
+                              },
                               child: const Icon(
                                 Icons.library_books_outlined,
                                 color: greyText,
