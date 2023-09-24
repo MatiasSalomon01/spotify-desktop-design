@@ -17,9 +17,13 @@ class LeftSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final service = Provider.of<GeneralService>(context);
     return Container(
-      width: size.width > 1033 ? 275 : 70,
+      width: service.isLibraryExpanded
+          ? 600
+          : size.width > 1033
+              ? 275
+              : 70,
       margin:
           const EdgeInsets.only(left: minimalPadding, bottom: minimalPadding),
       child: Column(
@@ -96,10 +100,22 @@ class Library extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              const CustomMaterialButton(icon: Icons.add),
+                              CustomMaterialButton(
+                                icon: Icons.add,
+                                onPressed: () {},
+                                tip: 'Crear una playlist o una carpeta',
+                              ),
                               separateHorizontal(20),
-                              const CustomMaterialButton(
-                                  icon: Icons.arrow_forward_rounded),
+                              CustomMaterialButton(
+                                icon: service.isLibraryExpanded
+                                    ? Icons.arrow_back_rounded
+                                    : Icons.arrow_forward_rounded,
+                                onPressed: () => service.isLibraryExpanded =
+                                    !service.isLibraryExpanded,
+                                tip: service.isLibraryExpanded
+                                    ? 'Mostrar menos'
+                                    : 'Mostras mas',
+                              ),
                             ]
                           ],
                         ),
@@ -108,32 +124,47 @@ class Library extends StatelessWidget {
                   ),
                   separateVertical(24),
                   if (size.width > 1033)
-                    Container(
-                      height: 30,
-                      padding: const EdgeInsets.only(left: minimalPadding + 5),
-                      margin: const EdgeInsets.only(bottom: 8),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: words.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 12),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: const Color(0xff232323),
+                    Row(
+                      children: [
+                        Container(
+                          height: 30,
+                          padding:
+                              const EdgeInsets.only(left: minimalPadding + 5),
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: words.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: const Color(0xff232323),
+                                ),
+                                child: Text(
+                                  words[index],
+                                  style: const TextStyle(
+                                      color: white,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                separateHorizontal(10),
+                          ),
+                        ),
+                        if (service.isLibraryExpanded) ...[
+                          const Spacer(),
+                          separateHorizontal(35),
+                          const Expanded(
+                            child: SearchInLibrary(
+                              addSpaceBetween: false,
                             ),
-                            child: Text(
-                              words[index],
-                              style: const TextStyle(
-                                  color: white, fontWeight: FontWeight.w600),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            separateHorizontal(10),
-                      ),
+                          )
+                        ]
+                      ],
                     ),
                 ],
               ),
@@ -188,13 +219,14 @@ class _LibraryContentState extends State<LibraryContent> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
 
     return Expanded(
       child: ListView(
         controller: _controller,
         children: [
           if (size.width > 1033) ...[
-            const SearchInLibrary(),
+            if (!service.isLibraryExpanded) const SearchInLibrary(),
             separateVertical(12),
           ],
           Scrollbar(
@@ -294,8 +326,10 @@ class _LibraryContentState extends State<LibraryContent> {
 }
 
 class SearchInLibrary extends StatelessWidget {
+  final bool addSpaceBetween;
   const SearchInLibrary({
     super.key,
+    this.addSpaceBetween = true,
   });
 
   @override
@@ -304,10 +338,15 @@ class SearchInLibrary extends StatelessWidget {
       padding: const EdgeInsets.only(
           left: minimalPadding, right: minimalPadding + 5),
       child: Row(
-        children: const [
-          CustomMaterialButton(icon: Icons.search),
-          Spacer(),
-          RecentButton(),
+        children: [
+          CustomMaterialButton(
+            icon: Icons.search,
+            onPressed: () {},
+            tip: 'Buscar en Tu Biblioteca',
+          ),
+          if (addSpaceBetween) const Spacer(),
+          if (!addSpaceBetween) separateHorizontal(15),
+          const RecentButton(),
         ],
       ),
     );

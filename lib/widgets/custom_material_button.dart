@@ -4,25 +4,32 @@ import '../constants/colors.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final IconData icon;
+  final VoidCallback onPressed;
+  final String tip;
   const CustomMaterialButton({
     super.key,
     required this.icon,
+    required this.onPressed,
+    this.tip = '',
   });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      hoverColor: const Color(0xff232323),
-      splashColor: tranparent,
-      highlightColor: tranparent,
-      elevation: 0,
-      shape: const CircleBorder(),
-      minWidth: 0,
-      padding: const EdgeInsets.all(10),
-      onPressed: () {},
-      child: Icon(
-        icon,
-        color: greyText,
+    return Tooltip(
+      message: tip,
+      child: MaterialButton(
+        hoverColor: const Color(0xff232323),
+        splashColor: tranparent,
+        highlightColor: tranparent,
+        elevation: 0,
+        shape: const CircleBorder(),
+        minWidth: 0,
+        padding: const EdgeInsets.all(10),
+        onPressed: onPressed,
+        child: Icon(
+          icon,
+          color: greyText,
+        ),
       ),
     );
   }

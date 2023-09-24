@@ -18,6 +18,15 @@ class GeneralService extends ChangeNotifier {
     _currentRoute = value;
     notifyListeners();
   }
+
+  bool _isLibraryExpanded = false;
+
+  bool get isLibraryExpanded => _isLibraryExpanded;
+
+  set isLibraryExpanded(bool value) {
+    _isLibraryExpanded = value;
+    notifyListeners();
+  }
 }
 
 enum Routes { home, search }
