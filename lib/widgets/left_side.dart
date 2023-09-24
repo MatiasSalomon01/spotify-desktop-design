@@ -48,104 +48,96 @@ class Library extends StatelessWidget {
           borderRadius: BorderRadius.circular(minimalRadius),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: minimalPadding + 12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(minimalRadius),
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 15),
+                    blurRadius: 15,
+                    spreadRadius: -10,
+                    color: black,
+                  ),
+                ],
+                color: grey,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.library_books_outlined,
-                        color: size.width < 1033 ? white : greyText,
-                      ),
-                      if (size.width > 1033) ...[
-                        separateHorizontal(10),
-                        const Text(
-                          'Tu Biblioteca',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: greyText,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: minimalPadding + 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(minimalRadius),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.library_books_outlined,
+                              color: size.width < 1033 ? white : greyText,
+                            ),
+                            if (size.width > 1033) ...[
+                              separateHorizontal(10),
+                              const Text(
+                                'Tu Biblioteca',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: greyText,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.add,
+                                color: greyText,
+                              ),
+                              separateHorizontal(20),
+                              const Icon(
+                                Icons.arrow_forward_rounded,
+                                color: greyText,
+                              ),
+                            ]
+                          ],
                         ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.add,
-                          color: greyText,
-                        ),
-                        separateHorizontal(20),
-                        const Icon(
-                          Icons.arrow_forward_rounded,
-                          color: greyText,
-                        ),
-                      ]
-                    ],
+                      ],
+                    ),
                   ),
+                  separateVertical(24),
+                  if (size.width > 1033)
+                    Container(
+                      height: 30,
+                      padding: const EdgeInsets.only(left: minimalPadding + 5),
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: words.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: const Color(0xff232323),
+                            ),
+                            child: Text(
+                              words[index],
+                              style: const TextStyle(
+                                  color: white, fontWeight: FontWeight.w600),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            separateHorizontal(10),
+                      ),
+                    ),
                 ],
               ),
             ),
-            separateVertical(24),
-            if (size.width > 1033)
-              Container(
-                height: 30,
-                padding: const EdgeInsets.only(left: minimalPadding + 5),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: words.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: const Color(0xff232323),
-                      ),
-                      child: Text(
-                        words[index],
-                        style: const TextStyle(
-                            color: white, fontWeight: FontWeight.w600),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => separateHorizontal(10),
-                ),
-              ),
-            if (size.width > 1033) ...[
-              separateVertical(12),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: minimalPadding + 10),
-                child: Row(
-                  children: [
-                    MaterialButton(
-                      hoverColor: const Color(0xff232323),
-                      splashColor: tranparent,
-                      highlightColor: tranparent,
-                      elevation: 0,
-                      shape: const CircleBorder(),
-                      minWidth: 0,
-                      padding: const EdgeInsets.all(12),
-                      onPressed: () {},
-                      child: const Icon(
-                        Icons.search,
-                        color: greyText,
-                      ),
-                    ),
-                    const Spacer(),
-                    const RecentButton(),
-                  ],
-                ),
-              ),
-              separateVertical(12),
-            ],
+            // separateVertical(12),
             const LibraryContent(),
           ],
         ),
@@ -177,91 +169,138 @@ class _LibraryContentState extends State<LibraryContent> {
     final size = MediaQuery.of(context).size;
 
     return Expanded(
-      child: Scrollbar(
-        controller: _controller,
-        child: ListView.separated(
-          controller: _controller,
-          padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
-          shrinkWrap: true,
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: Image.network(
-                    data[index].url,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      return Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: greyText.withOpacity(.3),
+      child: ListView(
+        children: [
+          if (size.width > 1033) ...[
+            const SearchInLibrary(),
+            separateVertical(12),
+          ],
+          Scrollbar(
+            controller: _controller,
+            child: ListView.separated(
+              controller: _controller,
+              padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
+              shrinkWrap: true,
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        ClipRRect(
                           borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ),
-                ),
-                if (size.width > 1033)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: minimalPadding),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data[index].title,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              color: white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
+                          child: Image.network(
+                            data[index].url,
+                            height: 50,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              return Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: greyText.withOpacity(.3),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: child,
+                              );
+                            },
                           ),
-                          // Spacer(),
-                          separateVertical(5),
-                          Row(
-                            children: [
-                              if (index == 0) ...[
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: Transform.rotate(
-                                    angle: .7,
-                                    child: const Icon(
-                                      Icons.push_pin_rounded,
-                                      size: 14,
-                                      color: green,
+                        ),
+                        if (size.width > 1033)
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: minimalPadding),
+                              child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data[index].title,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      color: white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
-                                separateHorizontal(6),
-                              ],
-                              Text(
-                                data[index].subTitle,
-                                style: const TextStyle(
-                                  color: greyText,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                ),
+                                  // Spacer(),
+                                  separateVertical(5),
+                                  Row(
+                                    children: [
+                                      if (index == 0) ...[
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3),
+                                          child: Transform.rotate(
+                                            angle: .7,
+                                            child: const Icon(
+                                              Icons.push_pin_rounded,
+                                              size: 14,
+                                              color: green,
+                                            ),
+                                          ),
+                                        ),
+                                        separateHorizontal(6),
+                                      ],
+                                      Text(
+                                        data[index].subTitle,
+                                        style: const TextStyle(
+                                          color: greyText,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
-                  ),
-              ],
-            );
-          },
-          separatorBuilder: (context, index) => separateVertical(13),
-        ),
+                  ],
+                );
+              },
+              separatorBuilder: (context, index) => separateVertical(13),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SearchInLibrary extends StatelessWidget {
+  const SearchInLibrary({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: minimalPadding, right: minimalPadding + 5),
+      child: Row(
+        children: [
+          MaterialButton(
+            hoverColor: const Color(0xff232323),
+            splashColor: tranparent,
+            highlightColor: tranparent,
+            elevation: 0,
+            shape: const CircleBorder(),
+            minWidth: 0,
+            padding: const EdgeInsets.all(12),
+            onPressed: () {},
+            child: const Icon(
+              Icons.search,
+              color: greyText,
+            ),
+          ),
+          const Spacer(),
+          const RecentButton(),
+        ],
       ),
     );
   }

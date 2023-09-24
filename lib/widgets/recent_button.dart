@@ -19,6 +19,7 @@ class _RecentButtonState extends State<RecentButton> {
       onEnter: (event) => setState(() => isHover = true),
       onExit: (event) => setState(() => isHover = false),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Recientes',
