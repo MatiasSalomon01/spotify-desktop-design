@@ -19,7 +19,7 @@ class LeftSide extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
     return Container(
-      width: service.isLibraryExpanded
+      width: size.width > 1033 && service.isLibraryExpanded
           ? 600
           : service.isLibraryMin
               ? 70
