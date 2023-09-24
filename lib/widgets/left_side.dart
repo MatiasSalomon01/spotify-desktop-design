@@ -176,6 +176,50 @@ class Library extends StatelessWidget {
                         ]
                       ],
                     ),
+                  if (service.isLibraryExpanded)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            left: 15,
+                            right: 28,
+                            top: 12,
+                          ),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: const [
+                              Text(
+                                'Titulo',
+                                style: TextStyle(color: greyText, fontSize: 12),
+                              ),
+                              Spacer(flex: 2),
+                              Text(
+                                'Fecha Agregada',
+                                style: TextStyle(color: greyText, fontSize: 12),
+                              ),
+                              Spacer(),
+                              Text(
+                                'Reproducido',
+                                style: TextStyle(color: greyText, fontSize: 12),
+                              )
+                            ],
+                          ),
+                        ),
+                        separateVertical(10),
+                        Container(
+                          margin: !service.isScrolling
+                              ? const EdgeInsets.only(
+                                  left: 15,
+                                  right: 28,
+                                  // top: 12,
+                                )
+                              : EdgeInsets.zero,
+                          color: white,
+                          height: .1,
+                        ),
+                      ],
+                    )
                 ],
               ),
             ),
