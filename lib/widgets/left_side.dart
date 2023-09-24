@@ -209,11 +209,7 @@ class Library extends StatelessWidget {
                         separateVertical(10),
                         Container(
                           margin: !service.isScrolling
-                              ? const EdgeInsets.only(
-                                  left: 15,
-                                  right: 28,
-                                  // top: 12,
-                                )
+                              ? const EdgeInsets.only(left: 15, right: 28)
                               : EdgeInsets.zero,
                           color: white,
                           height: .1,
@@ -223,7 +219,6 @@ class Library extends StatelessWidget {
                 ],
               ),
             ),
-            // separateVertical(12),
             const LibraryContent(),
           ],
         ),
