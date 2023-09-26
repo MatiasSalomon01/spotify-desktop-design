@@ -6,11 +6,17 @@ class CustomMaterialButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
   final String tip;
+  final Color? color;
+  final Widget? child;
+  final double padding;
   const CustomMaterialButton({
     super.key,
     required this.icon,
     required this.onPressed,
     this.tip = '',
+    this.color,
+    this.child,
+    this.padding = 10.0,
   });
 
   @override
@@ -18,18 +24,20 @@ class CustomMaterialButton extends StatelessWidget {
     return Tooltip(
       message: tip,
       child: MaterialButton(
+        color: color,
         hoverColor: hoverGrey,
         splashColor: tranparent,
         highlightColor: tranparent,
         elevation: 0,
         shape: const CircleBorder(),
         minWidth: 0,
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(padding),
         onPressed: onPressed,
-        child: Icon(
-          icon,
-          color: greyText,
-        ),
+        child: child ??
+            Icon(
+              icon,
+              color: greyText,
+            ),
       ),
     );
   }
