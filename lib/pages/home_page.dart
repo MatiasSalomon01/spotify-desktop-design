@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/constants/colors.dart';
 import 'package:spotify_desktop/widgets/more_button.dart';
 
+import '../services/general_service.dart';
 import '../widgets/left_side.dart';
 import '../widgets/middle_side.dart';
 import '../widgets/right_side.dart';
@@ -14,6 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double headerHeight = 40;
+    final service = Provider.of<GeneralService>(context);
     return Scaffold(
       backgroundColor: black,
       body: LayoutBuilder(
@@ -25,10 +28,10 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    LeftSide(),
-                    MiddleSide(),
-                    RightSide(),
+                  children: [
+                    const LeftSide(),
+                    const MiddleSide(),
+                    if (!service.hideRightSide) const RightSide(),
                   ],
                 ),
               ),

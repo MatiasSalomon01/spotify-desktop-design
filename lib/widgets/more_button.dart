@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/constants/values.dart';
 import '../constants/colors.dart';
+import '../services/general_service.dart';
 
 class MoreButton extends StatelessWidget {
   const MoreButton({
@@ -12,6 +14,7 @@ class MoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<GeneralService>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 18),
       child: SizedBox(
@@ -21,7 +24,9 @@ class MoreButton extends StatelessWidget {
             IconButton(
               splashColor: tranparent,
               splashRadius: .1,
-              onPressed: () {},
+              onPressed: () {
+                service.hideRightSide = false;
+              },
               icon: const Icon(Icons.more_horiz_outlined, color: white),
             ),
             // Text(

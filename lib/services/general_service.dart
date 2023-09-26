@@ -36,6 +36,15 @@ class GeneralService extends ChangeNotifier {
     _isLibraryMin = value;
     notifyListeners();
   }
+
+  bool _hideRightSide = false;
+
+  bool get hideRightSide => _hideRightSide;
+
+  set hideRightSide(bool value) {
+    _hideRightSide = value;
+    notifyListeners();
+  }
 }
 
 enum Routes { home, search }
