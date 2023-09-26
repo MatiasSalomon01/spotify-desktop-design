@@ -189,20 +189,24 @@ class Library extends StatelessWidget {
                           ),
                           child: Row(
                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Titulo',
-                                style: TextStyle(color: greyText, fontSize: 12),
+                                style:
+                                    TextStyle(color: greyText, fontSize: 11.5),
                               ),
-                              Spacer(flex: 2),
-                              Text(
+                              const Spacer(flex: 2),
+                              separateHorizontal(50),
+                              const Text(
                                 'Fecha Agregada',
-                                style: TextStyle(color: greyText, fontSize: 12),
+                                style:
+                                    TextStyle(color: greyText, fontSize: 11.5),
                               ),
-                              Spacer(),
-                              Text(
+                              const Spacer(),
+                              const Text(
                                 'Reproducido',
-                                style: TextStyle(color: greyText, fontSize: 12),
+                                style:
+                                    TextStyle(color: greyText, fontSize: 11.5),
                               )
                             ],
                           ),
@@ -351,81 +355,98 @@ class _LibraryTileState extends State<LibraryTile> {
                   },
                 ),
               )
-            : Column(
+            : Row(
                 children: [
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.network(
-                          widget.data.url,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.network(
+                      widget.data.url,
+                      height: 50,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        return Container(
                           height: 50,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            return Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                color: greyText.withOpacity(.3),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: child,
-                            );
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: minimalPadding),
-                          child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.data.title,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                  overflow: TextOverflow.ellipsis,
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              // Spacer(),
-                              separateVertical(5),
-                              Row(
-                                children: [
-                                  if (widget.index == 0) ...[
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Transform.rotate(
-                                        angle: .7,
-                                        child: const Icon(
-                                          Icons.push_pin_rounded,
-                                          size: 14,
-                                          color: green,
-                                        ),
-                                      ),
-                                    ),
-                                    separateHorizontal(6),
-                                  ],
-                                  Text(
-                                    widget.data.subTitle,
-                                    style: const TextStyle(
-                                      color: greyText,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: greyText.withOpacity(.3),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: child,
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: minimalPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: service.isLibraryExpanded ? 210 : 170,
+                          child: Text(
+                            widget.data.title,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        // Spacer(),
+                        separateVertical(5),
+                        Row(
+                          children: [
+                            if (widget.index == 0) ...[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Transform.rotate(
+                                  angle: .7,
+                                  child: const Icon(
+                                    Icons.push_pin_rounded,
+                                    size: 14,
+                                    color: green,
+                                  ),
+                                ),
+                              ),
+                              separateHorizontal(6),
+                            ],
+                            Text(
+                              widget.data.subTitle,
+                              style: const TextStyle(
+                                color: greyText,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  if (service.isLibraryExpanded) ...[
+                    separateHorizontal(20),
+                    Text(
+                      widget.data.addedDate,
+                      style: const TextStyle(
+                        color: greyText,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      widget.data.played,
+                      style: const TextStyle(
+                        color: greyText,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                    ),
+                    separateHorizontal(10),
+                  ]
                 ],
               ),
       ),
