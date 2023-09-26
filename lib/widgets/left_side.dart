@@ -52,7 +52,8 @@ class Library extends StatelessWidget {
     final service = Provider.of<GeneralService>(context);
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: minimalPadding + 10),
+        padding: const EdgeInsets.only(
+            top: minimalPadding + 10, bottom: minimalPadding),
         decoration: BoxDecoration(
           color: grey,
           borderRadius: BorderRadius.circular(minimalRadius),
