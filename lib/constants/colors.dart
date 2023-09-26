@@ -9,3 +9,4 @@ const white = Colors.white;
 const tranparent = Colors.transparent;
 const selected = Color(0xff232323);
 const hoverGrey = Color.fromARGB(255, 29, 29, 29);
+const purple = Color(0xff50399c);
