@@ -330,10 +330,11 @@ class _LibraryTileState extends State<LibraryTile> {
       child: GestureDetector(
         onTapDown: (_) => setState(() => isPressed = true),
         onTapUp: (_) => setState(() => isPressed = false),
+        onTapCancel: () => setState(() => isPressed = false),
         child: Container(
           decoration: BoxDecoration(
             color: isPressed
-                ? Colors.black26
+                ? selected
                 : isHover
                     ? hoverGrey
                     : tranparent,

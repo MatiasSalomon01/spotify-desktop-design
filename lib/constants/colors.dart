@@ -7,4 +7,5 @@ const lightGrey = Color(0xff545454);
 const greyText = Color(0xffa8aeb2);
 const white = Colors.white;
 const tranparent = Colors.transparent;
-const hoverGrey = Color(0xff232323);
+const selected = Color(0xff232323);
+const hoverGrey = Color.fromARGB(255, 29, 29, 29);
