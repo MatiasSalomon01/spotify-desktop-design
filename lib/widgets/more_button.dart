@@ -29,19 +29,19 @@ class MoreButton extends StatelessWidget {
               },
               icon: const Icon(Icons.more_horiz_outlined, color: white),
             ),
-            // Text(
-            //   "Screen width: ${MediaQuery.of(context).size.width}",
-            //   style: const TextStyle(color: white),
-            // ),
-            // const VerticalDivider(
-            //   color: white,
-            //   endIndent: 10,
-            //   indent: 10,
-            // ),
-            // Text(
-            //   "Screen height: ${MediaQuery.of(context).size.height}",
-            //   style: const TextStyle(color: white),
-            // )
+            Text(
+              "Screen width: ${MediaQuery.of(context).size.width}",
+              style: const TextStyle(color: white),
+            ),
+            const VerticalDivider(
+              color: white,
+              endIndent: 10,
+              indent: 10,
+            ),
+            Text(
+              "Screen height: ${MediaQuery.of(context).size.height}",
+              style: const TextStyle(color: white),
+            )
           ],
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../services/general_service.dart';
 
 class MiddleSide extends StatelessWidget {
   const MiddleSide({
@@ -10,6 +12,8 @@ class MiddleSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
     return Expanded(
       flex: 3,
       child: Container(
@@ -90,11 +94,17 @@ class MiddleSide extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Tus me gusta',
                           style: TextStyle(
                             color: white,
-                            fontSize: 75,
+                            fontSize: size.width < 810
+                                ? 40
+                                : size.width < 1043
+                                    ? 70
+                                    : service.isLibraryExpanded
+                                        ? 70
+                                        : 75,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
