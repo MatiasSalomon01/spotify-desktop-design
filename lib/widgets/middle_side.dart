@@ -34,80 +34,91 @@ class MiddleSide extends StatelessWidget {
         child: Column(
           children: [
             Stack(
-              children: [
-                const Header(),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: minimalPadding + 15,
-                    right: minimalPadding + 15,
-                    top: minimalPadding + 5,
-                  ),
-                  child: Row(
-                    children: [
-                      CustomMaterialButton(
-                        icon: Icons.chevron_left_rounded,
-                        onPressed: () {},
-                        color: black,
-                        child: const Icon(
-                          Icons.chevron_left_rounded,
-                          color: white,
-                          size: 30,
-                        ),
-                      ),
-                      separateHorizontal(8),
-                      CustomMaterialButton(
-                        icon: Icons.chevron_right_rounded,
-                        onPressed: () {},
-                        color: const Color(0xff241a46),
-                        child: const Icon(
-                          Icons.chevron_right_rounded,
-                          color: white,
-                          size: 30,
-                        ),
-                      ),
-                      const Spacer(),
-                      CustomMaterialButton(
-                        icon: Icons.notifications_outlined,
-                        onPressed: () {},
-                        color: const Color(0xff241a46),
-                        child: const Icon(
-                          Icons.notifications_outlined,
-                          color: white,
-                          size: 20,
-                        ),
-                        padding: 15,
-                      ),
-                      separateHorizontal(8),
-                      CustomMaterialButton(
-                        icon: Icons.groups_2_outlined,
-                        onPressed: () {},
-                        color: const Color(0xff241a46),
-                        padding: 15,
-                        child: const Icon(
-                          Icons.groups_2_outlined,
-                          color: white,
-                          size: 20,
-                        ),
-                      ),
-                      separateHorizontal(8),
-                      CustomMaterialButton(
-                        icon: Icons.person_2_outlined,
-                        onPressed: () {},
-                        color: const Color(0xff241a46),
-                        child: const Icon(
-                          Icons.person_2_outlined,
-                          color: white,
-                          size: 20,
-                        ),
-                        padding: 15,
-                      ),
-                    ],
-                  ),
-                )
+              children: const [
+                Header(),
+                UpperButtons(),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class UpperButtons extends StatelessWidget {
+  const UpperButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: minimalPadding + 15,
+        right: minimalPadding + 15,
+        top: minimalPadding + 5,
+      ),
+      child: Row(
+        children: [
+          CustomMaterialButton(
+            icon: Icons.chevron_left_rounded,
+            onPressed: () {},
+            color: black,
+            child: const Icon(
+              Icons.chevron_left_rounded,
+              color: white,
+              size: 30,
+            ),
+          ),
+          separateHorizontal(8),
+          CustomMaterialButton(
+            icon: Icons.chevron_right_rounded,
+            onPressed: () {},
+            color: const Color(0xff241a46),
+            child: const Icon(
+              Icons.chevron_right_rounded,
+              color: white,
+              size: 30,
+            ),
+          ),
+          const Spacer(),
+          CustomMaterialButton(
+            icon: Icons.notifications_outlined,
+            onPressed: () {},
+            color: const Color(0xff241a46),
+            padding: 15,
+            child: const Icon(
+              Icons.notifications_outlined,
+              color: white,
+              size: 20,
+            ),
+          ),
+          separateHorizontal(8),
+          CustomMaterialButton(
+            icon: Icons.groups_2_outlined,
+            onPressed: () {},
+            color: const Color(0xff241a46),
+            padding: 15,
+            child: const Icon(
+              Icons.groups_2_outlined,
+              color: white,
+              size: 20,
+            ),
+          ),
+          separateHorizontal(8),
+          CustomMaterialButton(
+            icon: Icons.person_2_outlined,
+            onPressed: () {},
+            color: const Color(0xff241a46),
+            padding: 15,
+            child: const Icon(
+              Icons.person_2_outlined,
+              color: white,
+              size: 20,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -202,11 +213,16 @@ class Header extends StatelessWidget {
                       TextSpan(
                         text: 'Matias Salomon',
                         style: TextStyle(
-                            color: white, fontWeight: FontWeight.bold),
+                          color: white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       TextSpan(
                         text: ' • 79 canciones',
-                        style: TextStyle(color: white),
+                        style: TextStyle(
+                          color: white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
