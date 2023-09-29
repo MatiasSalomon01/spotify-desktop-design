@@ -26,8 +26,7 @@ class LeftSide extends StatelessWidget {
               : size.width > 1033 && !service.isLibraryMin
                   ? 275
                   : 70,
-      margin:
-          const EdgeInsets.only(left: minimalPadding, bottom: minimalPadding),
+      margin: const EdgeInsets.only(left: minimalPadding),
       child: Column(
         // physics: const NeverScrollableScrollPhysics(),
         children: [

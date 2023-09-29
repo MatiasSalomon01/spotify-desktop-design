@@ -21,7 +21,6 @@ class MiddleSide extends StatelessWidget {
         margin: const EdgeInsets.only(
           left: minimalPadding,
           right: minimalPadding,
-          bottom: minimalPadding,
         ),
         decoration: BoxDecoration(
           gradient: const LinearGradient(

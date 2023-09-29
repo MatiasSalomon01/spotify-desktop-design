@@ -17,8 +17,7 @@ class RightSide extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        margin: const EdgeInsets.only(
-            right: minimalPadding, bottom: minimalPadding),
+        margin: const EdgeInsets.only(right: minimalPadding),
         decoration: BoxDecoration(
           color: grey,
           borderRadius: BorderRadius.circular(minimalRadius),
