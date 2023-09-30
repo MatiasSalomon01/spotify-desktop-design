@@ -34,49 +34,119 @@ class MiddleSide extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(minimalRadius),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: const [
-                  Header(),
-                  UpperButtons(),
+        child: ListView(
+          children: [
+            Stack(
+              children: const [
+                Header(),
+                UpperButtons(),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(minimalPadding + 15),
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: green,
+                    radius: 30,
+                    child: Icon(
+                      Icons.play_arrow_sharp,
+                      color: black,
+                      size: 40,
+                    ),
+                  ),
+                  separateHorizontal(30),
+                  const Icon(
+                    Icons.download_for_offline_outlined,
+                    color: greyText,
+                    size: 35,
+                  ),
+                  const Spacer(),
+                  CustomMaterialButton(
+                    tip: 'Buscar en la playlist',
+                    padding: 15,
+                    icon: Icons.search,
+                    onPressed: () {},
+                  ),
+                  separateHorizontal(15),
+                  const SortContent()
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(minimalPadding + 15),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      backgroundColor: green,
-                      radius: 30,
-                      child: Icon(
-                        Icons.play_arrow_sharp,
-                        color: black,
-                        size: 40,
+            ),
+            // const Content(),
+            Theme(
+              data: ThemeData(dividerColor: tranparent),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: DataTable(
+                  columnSpacing: 18,
+                  dataRowHeight: 55,
+                  columns: [
+                    DataColumn(
+                      label: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          '#',
+                          style: TextStyle(
+                            color: greyText,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      numeric: true,
+                    ),
+                    const DataColumn(
+                      label: Text(
+                        'Titulo',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                    separateHorizontal(30),
-                    const Icon(
-                      Icons.download_for_offline_outlined,
-                      color: greyText,
-                      size: 35,
+                    const DataColumn(
+                      label: Text(
+                        'Album',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                    const Spacer(),
-                    CustomMaterialButton(
-                      tip: 'Buscar en la playlist',
-                      padding: 15,
-                      icon: Icons.search,
-                      onPressed: () {},
+                    if (size.width > 1141)
+                      const DataColumn(
+                        label: Text(
+                          'Fecha en que se agrego',
+                          style: TextStyle(
+                            color: greyText,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    DataColumn(
+                      label: Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            Icon(
+                              Icons.watch_later_outlined,
+                              color: greyText,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    separateHorizontal(15),
-                    const SortContent()
                   ],
+                  rows: service.generateRows(size),
                 ),
               ),
-              const Content(),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -258,7 +328,7 @@ class Header extends StatelessWidget {
                     color: white,
                     fontSize: size.width < 810
                         ? 40
-                        : size.width < 1043
+                        : size.width < 1141
                             ? 70
                             : service.isLibraryExpanded
                                 ? 70

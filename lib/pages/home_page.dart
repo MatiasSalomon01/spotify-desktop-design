@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const MoreButton(headerHeight: headerHeight),
+                const MoreButton(headerHeight: headerHeight),
                 Expanded(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
