@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_desktop/widgets/custom_material_button.dart';
+import 'package:spotify_desktop/widgets/sort_content.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../models/data.dart';
 import '../services/general_service.dart';
+import 'left_side.dart';
 
 class MiddleSide extends StatelessWidget {
   const MiddleSide({
@@ -27,20 +30,77 @@ class MiddleSide extends StatelessWidget {
             colors: [purple, grey],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [0, .9],
+            stops: [0, .7],
           ),
           borderRadius: BorderRadius.circular(minimalRadius),
         ),
-        child: Column(
-          children: [
-            Stack(
-              children: const [
-                Header(),
-                UpperButtons(),
-              ],
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: const [
+                  Header(),
+                  UpperButtons(),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(minimalPadding + 15),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: green,
+                      radius: 30,
+                      child: Icon(
+                        Icons.play_arrow_sharp,
+                        color: black,
+                        size: 40,
+                      ),
+                    ),
+                    separateHorizontal(30),
+                    const Icon(
+                      Icons.download_for_offline_outlined,
+                      color: greyText,
+                      size: 35,
+                    ),
+                    const Spacer(),
+                    CustomMaterialButton(
+                      tip: 'Buscar en la playlist',
+                      padding: 15,
+                      icon: Icons.search,
+                      onPressed: () {},
+                    ),
+                    separateHorizontal(15),
+                    const SortContent()
+                  ],
+                ),
+              ),
+              const Content(),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class Content extends StatelessWidget {
+  const Content({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return LibraryTile(
+            data: data[index],
+            index: index,
+          );
+        },
       ),
     );
   }
@@ -83,30 +143,30 @@ class UpperButtons extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          CustomMaterialButton(
-            icon: Icons.notifications_outlined,
-            onPressed: () {},
-            color: const Color(0xff241a46),
-            padding: 15,
-            child: const Icon(
-              Icons.notifications_outlined,
-              color: white,
-              size: 20,
-            ),
-          ),
-          separateHorizontal(8),
-          CustomMaterialButton(
-            icon: Icons.groups_2_outlined,
-            onPressed: () {},
-            color: const Color(0xff241a46),
-            padding: 15,
-            child: const Icon(
-              Icons.groups_2_outlined,
-              color: white,
-              size: 20,
-            ),
-          ),
-          separateHorizontal(8),
+          // CustomMaterialButton(
+          //   icon: Icons.notifications_outlined,
+          //   onPressed: () {},
+          //   color: const Color(0xff241a46),
+          //   padding: 15,
+          //   child: const Icon(
+          //     Icons.notifications_outlined,
+          //     color: white,
+          //     size: 20,
+          //   ),
+          // ),
+          // separateHorizontal(8),
+          // CustomMaterialButton(
+          //   icon: Icons.groups_2_outlined,
+          //   onPressed: () {},
+          //   color: const Color(0xff241a46),
+          //   padding: 15,
+          //   child: const Icon(
+          //     Icons.groups_2_outlined,
+          //     color: white,
+          //     size: 20,
+          //   ),
+          // ),
+          // separateHorizontal(8),
           CustomMaterialButton(
             icon: Icons.person_2_outlined,
             onPressed: () {},
@@ -134,7 +194,7 @@ class Header extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
     return Container(
-      height: 320,
+      height: 345,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [purple, purple.withOpacity(.2)],
@@ -146,7 +206,7 @@ class Header extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: minimalPadding + 15, top: 40),
+            padding: const EdgeInsets.only(left: minimalPadding + 15, top: 70),
             child: Container(
               decoration: const BoxDecoration(
                 color: tranparent,
@@ -202,7 +262,7 @@ class Header extends StatelessWidget {
                             ? 70
                             : service.isLibraryExpanded
                                 ? 70
-                                : 75,
+                                : 90,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
