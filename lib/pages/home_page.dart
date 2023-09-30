@@ -34,8 +34,8 @@ class HomePage extends StatelessWidget {
                     children: [
                       const LeftSide(),
                       const MiddleSide(),
-                      if (!service.hideRightSide && constraints.maxWidth > 1297)
-                        const RightSide(),
+                      // if (!service.hideRightSide && constraints.maxWidth > 1297)
+                      //   const RightSide(),
                     ],
                   ),
                 ),

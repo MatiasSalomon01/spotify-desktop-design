@@ -74,76 +74,124 @@ class MiddleSide extends StatelessWidget {
               ),
             ),
             // const Content(),
-            Theme(
-              data: ThemeData(dividerColor: tranparent),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: DataTable(
-                  columnSpacing: 18,
-                  dataRowHeight: 55,
-                  columns: [
-                    DataColumn(
-                      label: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          '#',
-                          style: TextStyle(
-                            color: greyText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+            // Theme(
+            //   data: ThemeData(dividerColor: tranparent),
+            //   child: Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: DataTable(
+            //       columnSpacing: 18,
+            //       dataRowHeight: 55,
+            //       columns: [
+            //         DataColumn(
+            //           label: Container(
+            //             padding: EdgeInsets.symmetric(horizontal: 10),
+            //             child: Text(
+            //               '#',
+            //               style: TextStyle(
+            //                 color: greyText,
+            //                 fontSize: 18,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //           ),
+            //           numeric: true,
+            //         ),
+            //         const DataColumn(
+            //           label: Text(
+            //             'Titulo',
+            //             style: TextStyle(
+            //               color: greyText,
+            //               fontSize: 13,
+            //               fontWeight: FontWeight.w500,
+            //             ),
+            //           ),
+            //         ),
+            //         const DataColumn(
+            //           label: Text(
+            //             'Album',
+            //             style: TextStyle(
+            //               color: greyText,
+            //               fontSize: 13,
+            //               fontWeight: FontWeight.w500,
+            //             ),
+            //           ),
+            //         ),
+            //         if (size.width > 1141)
+            //           const DataColumn(
+            //             label: Text(
+            //               'Fecha en que se agrego',
+            //               style: TextStyle(
+            //                 color: greyText,
+            //                 fontSize: 13,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //           ),
+            //         DataColumn(
+            //           label: Expanded(
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.end,
+            //               children: const [
+            //                 Icon(
+            //                   Icons.watch_later_outlined,
+            //                   color: greyText,
+            //                   size: 18,
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //       rows: service.generateRows(size),
+            //     ),
+            //   ),
+            // ),
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '#',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      numeric: true,
-                    ),
-                    const DataColumn(
-                      label: Text(
+                      Text(
                         'Titulo',
                         style: TextStyle(
                           color: greyText,
-                          fontSize: 13,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                    const DataColumn(
-                      label: Text(
+                      Text(
                         'Album',
                         style: TextStyle(
                           color: greyText,
-                          fontSize: 13,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                    if (size.width > 1141)
-                      const DataColumn(
-                        label: Text(
-                          'Fecha en que se agrego',
-                          style: TextStyle(
-                            color: greyText,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      Text(
+                        'Fecha Agregada',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    DataColumn(
-                      label: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            Icon(
-                              Icons.watch_later_outlined,
-                              color: greyText,
-                              size: 18,
-                            ),
-                          ],
-                        ),
+                      Icon(
+                        Icons.watch_later_outlined,
+                        color: greyText,
+                        size: 18,
                       ),
-                    ),
-                  ],
-                  rows: service.generateRows(size),
-                ),
+                    ],
+                  )
+                ],
               ),
             ),
           ],
