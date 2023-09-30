@@ -73,124 +73,96 @@ class MiddleSide extends StatelessWidget {
                 ],
               ),
             ),
-            // const Content(),
-            // Theme(
-            //   data: ThemeData(dividerColor: tranparent),
-            //   child: Align(
-            //     alignment: Alignment.centerLeft,
-            //     child: DataTable(
-            //       columnSpacing: 18,
-            //       dataRowHeight: 55,
-            //       columns: [
-            //         DataColumn(
-            //           label: Container(
-            //             padding: EdgeInsets.symmetric(horizontal: 10),
-            //             child: Text(
-            //               '#',
-            //               style: TextStyle(
-            //                 color: greyText,
-            //                 fontSize: 18,
-            //                 fontWeight: FontWeight.w500,
-            //               ),
-            //             ),
-            //           ),
-            //           numeric: true,
-            //         ),
-            //         const DataColumn(
-            //           label: Text(
-            //             'Titulo',
-            //             style: TextStyle(
-            //               color: greyText,
-            //               fontSize: 13,
-            //               fontWeight: FontWeight.w500,
-            //             ),
-            //           ),
-            //         ),
-            //         const DataColumn(
-            //           label: Text(
-            //             'Album',
-            //             style: TextStyle(
-            //               color: greyText,
-            //               fontSize: 13,
-            //               fontWeight: FontWeight.w500,
-            //             ),
-            //           ),
-            //         ),
-            //         if (size.width > 1141)
-            //           const DataColumn(
-            //             label: Text(
-            //               'Fecha en que se agrego',
-            //               style: TextStyle(
-            //                 color: greyText,
-            //                 fontSize: 13,
-            //                 fontWeight: FontWeight.w500,
-            //               ),
-            //             ),
-            //           ),
-            //         DataColumn(
-            //           label: Expanded(
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.end,
-            //               children: const [
-            //                 Icon(
-            //                   Icons.watch_later_outlined,
-            //                   color: greyText,
-            //                   size: 18,
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //       rows: service.generateRows(size),
-            //     ),
-            //   ),
-            // ),
             Container(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '#',
-                        style: TextStyle(
-                          color: greyText,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                  Container(
+                    width: size.width,
+                    padding: const EdgeInsets.only(
+                      left: minimalPadding * 4,
+                      right: minimalPadding * 8,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          child: const Text(
+                            '#',
+                            style: TextStyle(
+                              color: greyText,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Titulo',
-                        style: TextStyle(
-                          color: greyText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                        Expanded(
+                          flex: 6,
+                          child: Container(
+                            color: tranparent,
+                            child: const Text(
+                              'Titulo',
+                              style: TextStyle(
+                                color: greyText,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Album',
-                        style: TextStyle(
-                          color: greyText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                        if (size.width > 715)
+                          Expanded(
+                            flex: 4,
+                            child: Container(
+                              color: tranparent,
+                              child: const Text(
+                                'Album',
+                                style: TextStyle(
+                                  color: greyText,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        if (size.width > 925)
+                          Expanded(
+                            flex: 4,
+                            child: Container(
+                              color: tranparent,
+                              child: const Text(
+                                'Fecha en que se agrego',
+                                style: TextStyle(
+                                  color: greyText,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            color: tranparent,
+                            child: const Icon(
+                              Icons.watch_later_outlined,
+                              color: greyText,
+                              size: 18,
+                            ),
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Fecha Agregada',
-                        style: TextStyle(
-                          color: greyText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Icon(
-                        Icons.watch_later_outlined,
-                        color: greyText,
-                        size: 18,
-                      ),
-                    ],
-                  )
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    color: white,
+                    indent: 30,
+                    endIndent: 30,
+                    thickness: .1,
+                  ),
+                  separateVertical(10),
+                  ...service.generateRows2(size),
                 ],
               ),
             ),
