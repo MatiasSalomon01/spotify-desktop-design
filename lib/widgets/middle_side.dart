@@ -30,7 +30,7 @@ class MiddleSide extends StatelessWidget {
             colors: [purple, grey],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [0, .7],
+            stops: [0, .8],
           ),
           borderRadius: BorderRadius.circular(minimalRadius),
         ),
@@ -95,44 +95,32 @@ class Table extends StatelessWidget {
         Container(
           width: size.width,
           padding: const EdgeInsets.only(
-            left: minimalPadding * 4,
-            right: minimalPadding * 8,
+            left: 28,
+            right: 10,
           ),
-          child: Row(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                width: 40,
-                child: const Text(
-                  '#',
-                  style: TextStyle(
-                    color: greyText,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 6,
-                child: Container(
-                  color: tranparent,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Container(
+                  // color: green,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.only(right: 20),
                   child: const Text(
-                    'Titulo',
+                    '#',
                     style: TextStyle(
                       color: greyText,
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-              ),
-              if (size.width > 715)
                 Expanded(
-                  flex: 4,
+                  flex: 6,
                   child: Container(
                     color: tranparent,
                     child: const Text(
-                      'Album',
+                      'Titulo',
                       style: TextStyle(
                         color: greyText,
                         fontSize: 14,
@@ -141,34 +129,49 @@ class Table extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (size.width > 925)
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    color: tranparent,
-                    child: const Text(
-                      'Fecha en que se agrego',
-                      style: TextStyle(
-                        color: greyText,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                if (size.width > 715)
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      color: tranparent,
+                      child: const Text(
+                        'Album',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  alignment: Alignment.centerRight,
-                  color: tranparent,
-                  child: const Icon(
-                    Icons.watch_later_outlined,
-                    color: greyText,
-                    size: 18,
+                if (size.width > 925)
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      color: tranparent,
+                      child: const Text(
+                        'Fecha en que se agrego',
+                        style: TextStyle(
+                          color: greyText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.watch_later_outlined,
+                      color: greyText,
+                      size: 18,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         const Divider(
