@@ -26,56 +26,79 @@ class MiddleSide extends StatelessWidget {
           right: minimalPadding,
         ),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [purple, grey],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, .8],
-          ),
+          color: grey,
           borderRadius: BorderRadius.circular(minimalRadius),
         ),
         child: ListView(
           children: [
             Stack(
-              children: const [
-                Header(),
-                UpperButtons(),
+              children: [
+                Container(
+                  height: 550,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [purple, grey],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(minimalRadius),
+                  ),
+                ),
+                const Header(),
+                const UpperButtons(),
+                const Padding(
+                  padding: EdgeInsets.only(top: 345),
+                  child: FuncButtons(),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 455),
+                  child: Table(),
+                ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(minimalPadding + 15),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    backgroundColor: green,
-                    radius: 30,
-                    child: Icon(
-                      Icons.play_arrow_sharp,
-                      color: black,
-                      size: 40,
-                    ),
-                  ),
-                  separateHorizontal(30),
-                  const Icon(
-                    Icons.download_for_offline_outlined,
-                    color: greyText,
-                    size: 35,
-                  ),
-                  const Spacer(),
-                  CustomMaterialButton(
-                    tip: 'Buscar en la playlist',
-                    padding: 15,
-                    icon: Icons.search,
-                    onPressed: () {},
-                  ),
-                  separateHorizontal(15),
-                  const SortContent()
-                ],
-              ),
-            ),
-            const Table(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FuncButtons extends StatelessWidget {
+  const FuncButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(minimalPadding + 15),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            backgroundColor: green,
+            radius: 28,
+            child: Icon(
+              Icons.play_arrow_sharp,
+              color: black,
+              size: 40,
+            ),
+          ),
+          separateHorizontal(30),
+          const Icon(
+            Icons.download_for_offline_outlined,
+            color: greyText,
+            size: 35,
+          ),
+          const Spacer(),
+          CustomMaterialButton(
+            tip: 'Buscar en la playlist',
+            padding: 15,
+            icon: Icons.search,
+            onPressed: () {},
+          ),
+          separateHorizontal(15),
+          const SortContent()
+        ],
       ),
     );
   }
@@ -103,7 +126,6 @@ class Table extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  // color: green,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(right: 20),
                   child: const Text(
@@ -247,30 +269,6 @@ class UpperButtons extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          // CustomMaterialButton(
-          //   icon: Icons.notifications_outlined,
-          //   onPressed: () {},
-          //   color: const Color(0xff241a46),
-          //   padding: 15,
-          //   child: const Icon(
-          //     Icons.notifications_outlined,
-          //     color: white,
-          //     size: 20,
-          //   ),
-          // ),
-          // separateHorizontal(8),
-          // CustomMaterialButton(
-          //   icon: Icons.groups_2_outlined,
-          //   onPressed: () {},
-          //   color: const Color(0xff241a46),
-          //   padding: 15,
-          //   child: const Icon(
-          //     Icons.groups_2_outlined,
-          //     color: white,
-          //     size: 20,
-          //   ),
-          // ),
-          // separateHorizontal(8),
           CustomMaterialButton(
             icon: Icons.person_2_outlined,
             onPressed: () {},
@@ -297,16 +295,8 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
-    return Container(
+    return SizedBox(
       height: 345,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [purple, purple.withOpacity(.2)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(minimalRadius),
-      ),
       child: Row(
         children: [
           Padding(
@@ -379,6 +369,7 @@ class Header extends StatelessWidget {
                         style: TextStyle(
                           color: white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 13.5,
                         ),
                       ),
                       TextSpan(
@@ -386,6 +377,7 @@ class Header extends StatelessWidget {
                         style: TextStyle(
                           color: white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 13.5,
                         ),
                       ),
                     ],

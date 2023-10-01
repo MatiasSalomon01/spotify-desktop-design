@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Container(
-            margin: const EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
