@@ -15,6 +15,59 @@ class BottomBar extends StatelessWidget {
         width: size.width,
         height: minimalPadding * 9,
         color: black,
+        child: Row(
+          children: const [
+            SongContent(),
+            Controllers(),
+            ExtraButtons(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExtraButtons extends StatelessWidget {
+  const ExtraButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: Colors.amber,
+      ),
+    );
+  }
+}
+
+class Controllers extends StatelessWidget {
+  const Controllers({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Container(
+        color: Colors.red,
+      ),
+    );
+  }
+}
+
+class SongContent extends StatelessWidget {
+  const SongContent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: green,
       ),
     );
   }
