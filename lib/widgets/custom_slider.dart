@@ -4,21 +4,29 @@ import '../constants/colors.dart';
 import '../overrides/custom_slider_track_shape.dart';
 
 class CustomSlider extends StatefulWidget {
-  const CustomSlider({super.key});
+  final double value;
+  final double padding;
+  final ValueChanged<double> onChanged;
+
+  const CustomSlider({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    this.padding = 2,
+  });
 
   @override
   State<CustomSlider> createState() => _CustomSliderState();
 }
 
 class _CustomSliderState extends State<CustomSlider> {
-  double slide = 0;
   bool isHover = false;
   bool isChanging = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.only(top: 2),
+        padding: EdgeInsets.only(top: widget.padding),
         child: MouseRegion(
           onEnter: (event) => setState(() => isHover = true),
           onExit: (event) => setState(() => isHover = false),
@@ -35,10 +43,10 @@ class _CustomSliderState extends State<CustomSlider> {
               overlayShape: SliderComponentShape.noOverlay,
             ),
             child: Slider(
-              onChanged: (value) => setState(() => slide = value),
+              onChanged: widget.onChanged,
               onChangeStart: (value) => isChanging = true,
               onChangeEnd: (value) => isChanging = false,
-              value: slide,
+              value: widget.value,
             ),
           ),
         ),

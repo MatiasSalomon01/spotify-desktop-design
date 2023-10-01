@@ -30,11 +30,17 @@ class BottomBar extends StatelessWidget {
   }
 }
 
-class ExtraButtons extends StatelessWidget {
+class ExtraButtons extends StatefulWidget {
   const ExtraButtons({
     super.key,
   });
 
+  @override
+  State<ExtraButtons> createState() => _ExtraButtonsState();
+}
+
+class _ExtraButtonsState extends State<ExtraButtons> {
+  double volume = 0;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -59,13 +65,23 @@ class ExtraButtons extends StatelessWidget {
             size: 15,
           ),
           separateHorizontal(15),
-          const Icon(
-            FontAwesomeIcons.volumeLow,
+          Icon(
+            volume == 0
+                ? FontAwesomeIcons.volumeXmark
+                : volume > 0 && volume <= .3
+                    ? FontAwesomeIcons.volumeOff
+                    : volume >= .3 && volume <= .6
+                        ? FontAwesomeIcons.volumeLow
+                        : FontAwesomeIcons.volumeHigh,
             color: greyText,
             size: 15,
           ),
-          separateHorizontal(5),
-          CustomSlider(),
+          separateHorizontal(8),
+          CustomSlider(
+            value: volume,
+            onChanged: (value) => setState(() => volume = value),
+            padding: 0,
+          ),
           separateHorizontal(15),
           const Icon(
             FontAwesomeIcons.upRightAndDownLeftFromCenter,
@@ -118,6 +134,7 @@ class Progress extends StatefulWidget {
 }
 
 class _ProgressState extends State<Progress> {
+  double progress = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -133,7 +150,10 @@ class _ProgressState extends State<Progress> {
             ),
           ),
           separateHorizontal(10),
-          const CustomSlider(),
+          CustomSlider(
+            value: progress,
+            onChanged: (value) => setState(() => progress = value),
+          ),
           separateHorizontal(10),
           const Text(
             '4:12',
