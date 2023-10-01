@@ -23,6 +23,16 @@ class CustomMaterialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tooltip(
       message: tip,
+      preferBelow: false,
+      textStyle: const TextStyle(
+        color: white,
+        fontSize: 13.5,
+        fontWeight: FontWeight.w500,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xff232323),
+        borderRadius: BorderRadius.circular(6),
+      ),
       child: MaterialButton(
         color: color,
         hoverColor: hoverGrey,
