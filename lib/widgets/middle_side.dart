@@ -27,9 +27,12 @@ class MiddleSide extends StatelessWidget {
           left: minimalPadding,
           right: minimalPadding,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(minimalRadius),
+            bottomRight: Radius.circular(minimalRadius),
+          ),
           color: grey,
-          borderRadius: BorderRadius.circular(minimalRadius),
         ),
         child: ListView(
           children: [
@@ -307,6 +310,10 @@ class Header extends StatelessWidget {
     return Container(
       height: 345,
       decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(minimalRadius),
+          topRight: Radius.circular(minimalRadius),
+        ),
         gradient: LinearGradient(
           colors: [lightColor, darkColor],
           begin: Alignment.topCenter,
