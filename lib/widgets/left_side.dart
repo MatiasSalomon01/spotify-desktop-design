@@ -26,7 +26,8 @@ class LeftSide extends StatelessWidget {
               : size.width > 1033 && !service.isLibraryMin
                   ? 275
                   : 70,
-      margin: const EdgeInsets.only(left: minimalPadding),
+      margin: const EdgeInsets.only(
+          left: minimalPadding, bottom: minimalPadding * 9),
       child: Column(
         // physics: const NeverScrollableScrollPhysics(),
         children: [
@@ -51,8 +52,7 @@ class Library extends StatelessWidget {
     final service = Provider.of<GeneralService>(context);
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.only(
-            top: minimalPadding + 10, bottom: minimalPadding),
+        padding: const EdgeInsets.only(top: minimalPadding + 10),
         decoration: BoxDecoration(
           color: grey,
           borderRadius: BorderRadius.circular(minimalRadius),
@@ -224,6 +224,7 @@ class Library extends StatelessWidget {
               ),
             ),
             const LibraryContent(),
+            separateVertical(10),
           ],
         ),
       ),

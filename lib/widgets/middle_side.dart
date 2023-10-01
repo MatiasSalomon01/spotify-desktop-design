@@ -26,6 +26,7 @@ class MiddleSide extends StatelessWidget {
         margin: const EdgeInsets.only(
           left: minimalPadding,
           right: minimalPadding,
+          bottom: minimalPadding * 9,
         ),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -212,6 +213,7 @@ class Table extends StatelessWidget {
         ),
         separateVertical(10),
         ...service.generateRows(size),
+        separateVertical(10),
       ],
     );
   }

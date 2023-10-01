@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_desktop/constants/colors.dart';
 import 'package:spotify_desktop/constants/values.dart';
+import 'package:spotify_desktop/widgets/bottom_bar.dart';
 import 'package:spotify_desktop/widgets/more_button.dart';
 
 import '../services/general_service.dart';
@@ -23,22 +24,21 @@ class HomePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Container(
-            margin: const EdgeInsets.only(top: 10, bottom: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            margin: const EdgeInsets.only(top: 10),
+            child: Stack(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // const MoreButton(headerHeight: headerHeight),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const LeftSide(),
-                      const MiddleSide(),
-                      // if (!service.hideRightSide && constraints.maxWidth > 1297)
-                      //   const RightSide(),
-                    ],
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    LeftSide(),
+                    MiddleSide(),
+                    // if (!service.hideRightSide && constraints.maxWidth > 1297)
+                    //   const RightSide(),
+                  ],
                 ),
+                const BottomBar()
               ],
             ),
           );
