@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../overrides/custom_slider_track_shape.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({super.key});
@@ -15,7 +16,7 @@ class BottomBar extends StatelessWidget {
         width: size.width,
         height: minimalPadding * 9,
         color: black,
-        padding: const EdgeInsets.all(minimalPadding),
+        padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
         child: Row(
           children: const [
             SongContent(),
@@ -37,8 +38,8 @@ class ExtraButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: Colors.amber,
-      ),
+          // color: Colors.amber,
+          ),
     );
   }
 }
@@ -52,8 +53,134 @@ class Controllers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Container(
-        color: Colors.red,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const FunctionalityButtons(),
+          separateVertical(8),
+          const Progress(),
+        ],
+      ),
+    );
+  }
+}
+
+class Progress extends StatefulWidget {
+  const Progress({
+    super.key,
+  });
+
+  @override
+  State<Progress> createState() => _ProgressState();
+}
+
+class _ProgressState extends State<Progress> {
+  double slide = 0;
+  bool isHover = false;
+  bool isChanging = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 100),
+      child: Row(
+        children: [
+          const Text(
+            '0:00',
+            style: TextStyle(
+              color: greyText,
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
+          ),
+          separateHorizontal(10),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(top: 2),
+              child: MouseRegion(
+                onEnter: (event) => setState(() => isHover = true),
+                onExit: (event) => setState(() => isHover = false),
+                child: SliderTheme(
+                  data: SliderThemeData(
+                    trackHeight: 4,
+                    trackShape: CustomSliderTrackShape(),
+                    thumbColor: isHover || isChanging ? white : tranparent,
+                    activeTrackColor: isHover || isChanging ? green : white,
+                    inactiveTrackColor: const Color(0xff4d4d4d),
+                    thumbShape: RoundSliderThumbShape(
+                      enabledThumbRadius: isHover || isChanging ? 6 : 6,
+                    ),
+                    overlayShape: SliderComponentShape.noOverlay,
+                  ),
+                  child: Slider(
+                    onChanged: (value) => setState(() => slide = value),
+                    onChangeStart: (value) => isChanging = true,
+                    onChangeEnd: (value) => isChanging = false,
+                    value: slide,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          separateHorizontal(10),
+          const Text(
+            '4:12',
+            style: TextStyle(
+              color: greyText,
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class FunctionalityButtons extends StatelessWidget {
+  const FunctionalityButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 250,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          FaIcon(
+            FontAwesomeIcons.shuffle,
+            color: greyText,
+            size: 15,
+          ),
+          FaIcon(
+            FontAwesomeIcons.backwardStep,
+            color: greyText,
+            size: 20,
+          ),
+          CircleAvatar(
+            backgroundColor: white,
+            radius: 16,
+            child: Center(
+              child: Icon(
+                Icons.play_arrow_rounded,
+                color: black,
+                size: 28,
+              ),
+            ),
+          ),
+          FaIcon(
+            FontAwesomeIcons.forwardStep,
+            color: greyText,
+            size: 20,
+          ),
+          FaIcon(
+            FontAwesomeIcons.repeat,
+            color: greyText,
+            size: 15,
+          ),
+        ],
       ),
     );
   }

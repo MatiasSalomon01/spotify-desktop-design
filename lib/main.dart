@@ -39,6 +39,20 @@ class MyApp extends StatelessWidget {
           radius: const Radius.circular(0),
           minThumbLength: 35,
         ),
+        // sliderTheme: SliderThemeData(
+        //   // trackHeight: 4,
+        //   // thumbColor: white,
+        //   // trackShape: RectangularSliderTrackShape(),
+        //   // // activeTrackColor: white,
+        //   // inactiveTrackColor: const Color(0xff4d4d4d),
+        //   // overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
+        //   overlayShape: SliderComponentShape.noOverlay,
+        //   // thumbShape: const RoundSliderThumbShape(
+        //   //   enabledThumbRadius: 5,
+        //   //   disabledThumbRadius: 0,
+        //   //   pressedElevation: 0,
+        //   // ),
+        // ),
       ),
     );
   }
