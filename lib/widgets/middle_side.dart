@@ -10,14 +10,16 @@ import '../services/general_service.dart';
 import 'left_side.dart';
 
 class MiddleSide extends StatelessWidget {
+  final Color darkColor;
+  final Color lightColor;
   const MiddleSide({
     super.key,
+    this.darkColor = const Color(0xff2a1e53),
+    this.lightColor = const Color(0xff513a9d),
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final service = Provider.of<GeneralService>(context);
     return Expanded(
       flex: 3,
       child: Container(
@@ -36,15 +38,18 @@ class MiddleSide extends StatelessWidget {
                 Container(
                   height: 550,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [purple, grey],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
+                    gradient: LinearGradient(
+                        colors: [darkColor, grey],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: const [.5, 1]),
                     borderRadius: BorderRadius.circular(minimalRadius),
                   ),
                 ),
-                const Header(),
+                Header(
+                  lightColor: lightColor,
+                  darkColor: darkColor,
+                ),
                 const UpperButtons(),
                 const Padding(
                   padding: EdgeInsets.only(top: 345),
@@ -287,16 +292,27 @@ class UpperButtons extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
+  final Color darkColor;
+  final Color lightColor;
   const Header({
     super.key,
+    this.darkColor = const Color(0xff2a1e53),
+    this.lightColor = const Color(0xff513a9d),
   });
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
-    return SizedBox(
+    return Container(
       height: 345,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [lightColor, darkColor],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       child: Row(
         children: [
           Padding(
@@ -322,7 +338,7 @@ class Header extends StatelessWidget {
                       height: 230,
                       width: 230,
                       decoration: BoxDecoration(
-                        color: tranparent,
+                        color: lightColor,
                         borderRadius: BorderRadius.circular(minimalRadius),
                       ),
                       child: child,
