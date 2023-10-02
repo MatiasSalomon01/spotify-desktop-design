@@ -275,12 +275,13 @@ class SongContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.only(left: 4),
+        // color: green,
+        padding: const EdgeInsets.only(left: 4, right: 5),
         child: Row(
           children: [
             ClipRRect(
               child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+                'https://kolala.cl/wp-content/uploads/2023/06/SodaCanci.jpg',
                 height: 55,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
@@ -304,9 +305,9 @@ class SongContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    width: 170,
+                    width: 240,
                     child: Text(
-                      'Just the Two of Us',
+                      'Entre Caníbales - Remasterizado 2007',
                       maxLines: 1,
                       style: TextStyle(
                         overflow: TextOverflow.ellipsis,
@@ -318,7 +319,7 @@ class SongContent extends StatelessWidget {
                   ),
                   separateVertical(2),
                   const Text(
-                    'Grover Washington, Jr., Bill Withers',
+                    'Soda Stereo',
                     style: TextStyle(
                       color: greyText,
                       fontWeight: FontWeight.w500,
