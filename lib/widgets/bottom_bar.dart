@@ -47,33 +47,29 @@ class _ExtraButtonsState extends State<ExtraButtons> {
       child: Row(
         children: [
           const Spacer(),
-          const Icon(
-            Icons.mic,
-            color: greyText,
-            size: 18,
-          ),
+          const CustomIconButton(icon: Icons.mic, tip: 'Letras', size: 18),
           separateHorizontal(15),
-          const Icon(
-            Icons.queue_music_rounded,
-            color: greyText,
+          const CustomIconButton(
+            icon: Icons.queue_music_rounded,
+            tip: 'Cola de reproduccion',
             size: 22,
           ),
           separateHorizontal(15),
-          const Icon(
-            FontAwesomeIcons.computer,
-            color: greyText,
+          const CustomIconButton(
+            icon: FontAwesomeIcons.computer,
+            tip: 'Conectar a un dispositivo',
             size: 15,
           ),
           separateHorizontal(15),
-          Icon(
-            volume == 0
+          CustomIconButton(
+            icon: volume == 0
                 ? FontAwesomeIcons.volumeXmark
                 : volume > 0 && volume <= .3
                     ? FontAwesomeIcons.volumeOff
                     : volume >= .3 && volume <= .6
                         ? FontAwesomeIcons.volumeLow
                         : FontAwesomeIcons.volumeHigh,
-            color: greyText,
+            tip: 'Sonido',
             size: 15,
           ),
           separateHorizontal(8),
@@ -83,9 +79,9 @@ class _ExtraButtonsState extends State<ExtraButtons> {
             padding: 0,
           ),
           separateHorizontal(15),
-          const Icon(
-            FontAwesomeIcons.upRightAndDownLeftFromCenter,
-            color: greyText,
+          const CustomIconButton(
+            icon: FontAwesomeIcons.upRightAndDownLeftFromCenter,
+            tip: 'Pantalla Completa',
             size: 13,
           ),
           separateHorizontal(15),
@@ -98,6 +94,57 @@ class _ExtraButtonsState extends State<ExtraButtons> {
           //   color: greyText,
           // ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomIconButton extends StatefulWidget {
+  final IconData icon;
+  final String tip;
+  final double size;
+  final bool enableHover;
+  const CustomIconButton({
+    super.key,
+    required this.icon,
+    required this.tip,
+    required this.size,
+    this.enableHover = true,
+  });
+
+  @override
+  State<CustomIconButton> createState() => _CustomIconButtonState();
+}
+
+class _CustomIconButtonState extends State<CustomIconButton> {
+  bool isHover = false;
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (event) => setState(() => isHover = true),
+      onExit: (event) => setState(() => isHover = false),
+      child: Tooltip(
+        message: widget.tip,
+        preferBelow: false,
+        textStyle: const TextStyle(
+          color: white,
+          fontSize: 13.5,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: BoxDecoration(
+          color: const Color(0xff232323),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Icon(
+          widget.icon,
+          color: widget.enableHover
+              ? isHover
+                  ? white
+                  : greyText
+              : black,
+          size: widget.size,
+        ),
       ),
     );
   }
@@ -181,35 +228,36 @@ class FunctionalityButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: const [
-          FaIcon(
-            FontAwesomeIcons.shuffle,
-            color: greyText,
+          CustomIconButton(
+            icon: FontAwesomeIcons.shuffle,
+            tip: 'Activar reproduccion aleatoria',
             size: 15,
           ),
-          FaIcon(
-            FontAwesomeIcons.backwardStep,
-            color: greyText,
+          CustomIconButton(
+            icon: FontAwesomeIcons.backwardStep,
+            tip: 'Anterior',
             size: 20,
           ),
           CircleAvatar(
             backgroundColor: white,
             radius: 16,
             child: Center(
-              child: Icon(
-                Icons.play_arrow_rounded,
-                color: black,
+              child: CustomIconButton(
+                icon: Icons.play_arrow_rounded,
+                tip: 'Reproducir',
                 size: 28,
+                enableHover: false,
               ),
             ),
           ),
-          FaIcon(
-            FontAwesomeIcons.forwardStep,
-            color: greyText,
+          CustomIconButton(
+            icon: FontAwesomeIcons.forwardStep,
+            tip: 'Siguiente',
             size: 20,
           ),
-          FaIcon(
-            FontAwesomeIcons.repeat,
-            color: greyText,
+          CustomIconButton(
+            icon: FontAwesomeIcons.repeat,
+            tip: 'Activar repeticion',
             size: 15,
           ),
         ],
