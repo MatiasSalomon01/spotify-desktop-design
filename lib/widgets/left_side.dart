@@ -27,12 +27,13 @@ class LeftSide extends StatelessWidget {
                   ? 275
                   : 70,
       margin: const EdgeInsets.only(
-          left: minimalPadding, bottom: minimalPadding * 9),
+        left: minimalPadding - 2,
+        bottom: minimalPadding * 9,
+      ),
       child: Column(
-        // physics: const NeverScrollableScrollPhysics(),
         children: [
           const HomeSearch(),
-          separateVertical(10),
+          separateVertical(8),
           const Library(),
         ],
       ),
@@ -78,7 +79,8 @@ class Library extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: minimalPadding + 12),
+                      horizontal: minimalPadding + 12,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(minimalRadius),
                     ),

@@ -24,15 +24,12 @@ class MiddleSide extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(
-          left: minimalPadding,
-          right: minimalPadding,
+          left: minimalPadding - 2,
+          right: minimalPadding - 2,
           bottom: minimalPadding * 9,
         ),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(minimalRadius),
-            bottomRight: Radius.circular(minimalRadius),
-          ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(minimalPadding),
           color: grey,
         ),
         child: ListView(
@@ -47,14 +44,13 @@ class MiddleSide extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         stops: const [.5, 1]),
-                    borderRadius: BorderRadius.circular(minimalRadius),
+                    borderRadius: BorderRadius.circular(minimalPadding),
                   ),
                 ),
                 Header(
                   lightColor: lightColor,
                   darkColor: darkColor,
                 ),
-                const UpperButtons(),
                 const Padding(
                   padding: EdgeInsets.only(top: 345),
                   child: FuncButtons(),
@@ -63,6 +59,7 @@ class MiddleSide extends StatelessWidget {
                   padding: EdgeInsets.only(top: 455),
                   child: Table(),
                 ),
+                const UpperButtons(),
               ],
             ),
           ],
