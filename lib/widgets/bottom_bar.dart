@@ -277,7 +277,9 @@ class SongContent extends StatelessWidget {
       child: Container(
         // color: green,
         padding: const EdgeInsets.only(left: 4, right: 5),
-        child: Row(
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             ClipRRect(
               child: Image.network(
