@@ -281,22 +281,25 @@ class SongContent extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            ClipRRect(
-              child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
-                height: 55,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  return Container(
-                    height: 55,
-                    width: 57,
-                    decoration: BoxDecoration(
-                      color: greyText.withOpacity(.3),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: child,
-                  );
-                },
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: ClipRRect(
+                child: Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
+                  height: 55,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    return Container(
+                      height: 55,
+                      width: 57,
+                      decoration: BoxDecoration(
+                        color: greyText.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: child,
+                    );
+                  },
+                ),
               ),
             ),
             Padding(
@@ -306,17 +309,14 @@ class SongContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    width: 240,
-                    child: Text(
-                      'Entre Caníbales - Remasterizado 2007',
-                      maxLines: 1,
-                      style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
+                  const Text(
+                    'Entre Caníbales - Remasterizado 2007',
+                    maxLines: 1,
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      color: white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
                     ),
                   ),
                   separateVertical(2),
