@@ -14,6 +14,8 @@ class FullScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
+            bottom: 10,
+            right: 10,
             child: CustomIconButton(
               icon: FontAwesomeIcons.downLeftAndUpRightToCenter,
               tip: '',
