@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/colors.dart';
 import '../constants/values.dart';
-import '../overrides/custom_slider_track_shape.dart';
 import 'custom_slider.dart';
 
 class BottomBar extends StatelessWidget {
@@ -73,10 +72,13 @@ class _ExtraButtonsState extends State<ExtraButtons> {
             size: 15,
           ),
           separateHorizontal(8),
-          CustomSlider(
-            value: volume,
-            onChanged: (value) => setState(() => volume = value),
-            padding: 0,
+          SizedBox(
+            width: 100,
+            child: CustomSlider(
+              value: volume,
+              onChanged: (value) => setState(() => volume = value),
+              padding: 0,
+            ),
           ),
           separateHorizontal(15),
           const CustomIconButton(
