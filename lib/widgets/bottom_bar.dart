@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spotify_desktop/pages/full_screen.dart';
 import '../constants/colors.dart';
 import '../constants/values.dart';
 import 'custom_slider.dart';
@@ -81,10 +82,17 @@ class _ExtraButtonsState extends State<ExtraButtons> {
             ),
           ),
           separateHorizontal(15),
-          const CustomIconButton(
+          CustomIconButton(
             icon: FontAwesomeIcons.upRightAndDownLeftFromCenter,
             tip: 'Pantalla Completa',
             size: 13,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FullScreen(color: purple),
+                ),
+              );
+            },
           ),
           separateHorizontal(15),
           // Icon(
@@ -106,12 +114,14 @@ class CustomIconButton extends StatefulWidget {
   final String tip;
   final double size;
   final bool enableHover;
+  final VoidCallback? onTap;
   const CustomIconButton({
     super.key,
     required this.icon,
     required this.tip,
     required this.size,
     this.enableHover = true,
+    this.onTap,
   });
 
   @override
@@ -138,14 +148,17 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           color: const Color(0xff232323),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Icon(
-          widget.icon,
-          color: widget.enableHover
-              ? isHover
-                  ? white
-                  : greyText
-              : black,
-          size: widget.size,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Icon(
+            widget.icon,
+            color: widget.enableHover
+                ? isHover
+                    ? white
+                    : greyText
+                : black,
+            size: widget.size,
+          ),
         ),
       ),
     );
