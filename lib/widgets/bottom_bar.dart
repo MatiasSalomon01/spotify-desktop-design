@@ -73,13 +73,11 @@ class _ExtraButtonsState extends State<ExtraButtons> {
             size: 15,
           ),
           separateHorizontal(8),
-          SizedBox(
+          CustomSlider(
+            value: volume,
+            onChanged: (value) => setState(() => volume = value),
+            padding: 0,
             width: 100,
-            child: CustomSlider(
-              value: volume,
-              onChanged: (value) => setState(() => volume = value),
-              padding: 0,
-            ),
           ),
           separateHorizontal(15),
           CustomIconButton(
@@ -212,9 +210,11 @@ class _ProgressState extends State<Progress> {
             ),
           ),
           separateHorizontal(10),
-          CustomSlider(
-            value: progress,
-            onChanged: (value) => setState(() => progress = value),
+          Expanded(
+            child: CustomSlider(
+              value: progress,
+              onChanged: (value) => setState(() => progress = value),
+            ),
           ),
           separateHorizontal(10),
           const Text(
