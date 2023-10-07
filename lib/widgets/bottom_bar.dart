@@ -19,10 +19,24 @@ class BottomBar extends StatelessWidget {
         color: black,
         padding: const EdgeInsets.symmetric(horizontal: minimalPadding),
         child: Row(
-          children: const [
-            SongContent(),
-            Controllers(),
-            ExtraButtons(),
+          children: [
+            const SongContent(),
+            const Controllers(),
+            ExtraButtons(
+              screenIcon: CustomIconButton(
+                icon: FontAwesomeIcons.upRightAndDownLeftFromCenter,
+                tip: 'Pantalla Completa',
+                size: 13,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const FullScreen(color: purple),
+                    ),
+                  );
+                },
+              ),
+            ),
+            separateHorizontal(10),
           ],
         ),
       ),
@@ -31,8 +45,10 @@ class BottomBar extends StatelessWidget {
 }
 
 class ExtraButtons extends StatefulWidget {
+  final Widget screenIcon;
   const ExtraButtons({
     super.key,
+    required this.screenIcon,
   });
 
   @override
@@ -43,66 +59,43 @@ class _ExtraButtonsState extends State<ExtraButtons> {
   double volume = 0;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        children: [
-          const Spacer(),
-          const CustomIconButton(icon: Icons.mic, tip: 'Letras', size: 18),
-          separateHorizontal(15),
-          const CustomIconButton(
-            icon: Icons.queue_music_rounded,
-            tip: 'Cola de reproduccion',
-            size: 22,
-          ),
-          separateHorizontal(15),
-          const CustomIconButton(
-            icon: FontAwesomeIcons.computer,
-            tip: 'Conectar a un dispositivo',
-            size: 15,
-          ),
-          separateHorizontal(15),
-          CustomIconButton(
-            icon: volume == 0
-                ? FontAwesomeIcons.volumeXmark
-                : volume > 0 && volume <= .3
-                    ? FontAwesomeIcons.volumeOff
-                    : volume >= .3 && volume <= .6
-                        ? FontAwesomeIcons.volumeLow
-                        : FontAwesomeIcons.volumeHigh,
-            tip: 'Sonido',
-            size: 15,
-          ),
-          separateHorizontal(8),
-          CustomSlider(
-            value: volume,
-            onChanged: (value) => setState(() => volume = value),
-            padding: 0,
-            width: 100,
-          ),
-          separateHorizontal(15),
-          CustomIconButton(
-            icon: FontAwesomeIcons.upRightAndDownLeftFromCenter,
-            tip: 'Pantalla Completa',
-            size: 13,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FullScreen(color: purple),
-                ),
-              );
-            },
-          ),
-          separateHorizontal(15),
-          // Icon(
-          //   Icons.devices_rounded,
-          //   color: greyText,
-          // ),
-          // Icon(
-          //   FontAwesomeIcons.downLeftAndUpRightToCenter,
-          //   color: greyText,
-          // ),
-        ],
-      ),
+    return Row(
+      children: [
+        const CustomIconButton(icon: Icons.mic, tip: 'Letras', size: 18),
+        separateHorizontal(15),
+        const CustomIconButton(
+          icon: Icons.queue_music_rounded,
+          tip: 'Cola de reproduccion',
+          size: 22,
+        ),
+        separateHorizontal(15),
+        const CustomIconButton(
+          icon: FontAwesomeIcons.computer,
+          tip: 'Conectar a un dispositivo',
+          size: 15,
+        ),
+        separateHorizontal(15),
+        CustomIconButton(
+          icon: volume == 0
+              ? FontAwesomeIcons.volumeXmark
+              : volume > 0 && volume <= .3
+                  ? FontAwesomeIcons.volumeOff
+                  : volume >= .3 && volume <= .6
+                      ? FontAwesomeIcons.volumeLow
+                      : FontAwesomeIcons.volumeHigh,
+          tip: 'Sonido',
+          size: 15,
+        ),
+        separateHorizontal(8),
+        CustomSlider(
+          value: volume,
+          onChanged: (value) => setState(() => volume = value),
+          padding: 0,
+          width: 100,
+        ),
+        separateHorizontal(15),
+        widget.screenIcon,
+      ],
     );
   }
 }
@@ -232,35 +225,49 @@ class _ProgressState extends State<Progress> {
 }
 
 class FunctionalityButtons extends StatelessWidget {
+  final double shuffle;
+  final double previous;
+  final double playPause;
+  final double playPauseRadius;
+  final double next;
+  final double repeat;
+  final double widthSizedBox;
   const FunctionalityButtons({
     super.key,
+    this.shuffle = 15,
+    this.previous = 20,
+    this.playPause = 28,
+    this.next = 20,
+    this.repeat = 15,
+    this.playPauseRadius = 16,
+    this.widthSizedBox = 250,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250,
+      width: widthSizedBox,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
+        children: [
           CustomIconButton(
             icon: FontAwesomeIcons.shuffle,
             tip: 'Activar reproduccion aleatoria',
-            size: 15,
+            size: shuffle,
           ),
           CustomIconButton(
             icon: FontAwesomeIcons.backwardStep,
             tip: 'Anterior',
-            size: 20,
+            size: previous,
           ),
           CircleAvatar(
             backgroundColor: white,
-            radius: 16,
+            radius: playPauseRadius,
             child: Center(
               child: CustomIconButton(
                 icon: Icons.play_arrow_rounded,
                 tip: 'Reproducir',
-                size: 28,
+                size: playPause,
                 enableHover: false,
               ),
             ),
@@ -268,12 +275,12 @@ class FunctionalityButtons extends StatelessWidget {
           CustomIconButton(
             icon: FontAwesomeIcons.forwardStep,
             tip: 'Siguiente',
-            size: 20,
+            size: next,
           ),
           CustomIconButton(
             icon: FontAwesomeIcons.repeat,
             tip: 'Activar repeticion',
-            size: 15,
+            size: repeat,
           ),
         ],
       ),

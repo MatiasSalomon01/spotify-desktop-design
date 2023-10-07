@@ -8,6 +8,7 @@ class CustomSlider extends StatefulWidget {
   final double padding;
   final ValueChanged<double> onChanged;
   final double? width;
+  final double trackHeight;
 
   const CustomSlider({
     super.key,
@@ -15,6 +16,7 @@ class CustomSlider extends StatefulWidget {
     required this.onChanged,
     this.padding = 2,
     this.width,
+    this.trackHeight = 4,
   });
 
   @override
@@ -34,13 +36,16 @@ class _CustomSliderState extends State<CustomSlider> {
         onExit: (event) => setState(() => isHover = false),
         child: SliderTheme(
           data: SliderThemeData(
-            trackHeight: 4,
+            trackHeight: widget.trackHeight,
             trackShape: CustomSliderTrackShape(),
             thumbColor: isHover || isChanging ? white : tranparent,
             activeTrackColor: isHover || isChanging ? green : white,
-            inactiveTrackColor: const Color(0xff4d4d4d),
+            inactiveTrackColor: white.withOpacity(.2),
             thumbShape: RoundSliderThumbShape(
               enabledThumbRadius: isHover || isChanging ? 6 : 6,
+              elevation: 0,
+              disabledThumbRadius: 0,
+              pressedElevation: 0,
             ),
             overlayShape: SliderComponentShape.noOverlay,
           ),
