@@ -298,29 +298,32 @@ class SongContent extends StatelessWidget {
     return Expanded(
       child: Container(
         // color: green,
-        padding: const EdgeInsets.only(left: 4, right: 5),
+        padding: const EdgeInsets.only(left: 4),
         child: ListView(
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: ClipRRect(
-                child: Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
-                  height: 55,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    return Container(
-                      height: 55,
-                      width: 57,
-                      decoration: BoxDecoration(
-                        color: greyText.withOpacity(.3),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: child,
-                    );
-                  },
+              child: Hero(
+                tag: 'image',
+                child: ClipRRect(
+                  child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
+                    height: 55,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      return Container(
+                        height: 55,
+                        width: 57,
+                        decoration: BoxDecoration(
+                          color: greyText.withOpacity(.3),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -353,7 +356,6 @@ class SongContent extends StatelessWidget {
                 ],
               ),
             ),
-            separateHorizontal(8),
             const Icon(
               Icons.favorite,
               color: green,
