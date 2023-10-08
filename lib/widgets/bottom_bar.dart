@@ -310,68 +310,93 @@ class SongContent extends StatelessWidget {
         padding: const EdgeInsets.only(left: 4),
         child: service.currentSong == null
             ? Container()
-            : ListView(
-                scrollDirection: Axis.horizontal,
-                physics: const NeverScrollableScrollPhysics(),
+            : Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Hero(
-                      tag: 'image',
-                      child: ClipRRect(
-                        child: Image.network(
-                          service.currentSong!.url,
-                          height: 55,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            return Container(
+                  ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Hero(
+                          tag: 'image',
+                          child: ClipRRect(
+                            child: Image.network(
+                              service.currentSong!.url,
                               height: 55,
-                              width: 57,
-                              decoration: BoxDecoration(
-                                color: greyText.withOpacity(.3),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: child,
-                            );
-                          },
+                              fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                return Container(
+                                  height: 55,
+                                  width: 57,
+                                  decoration: BoxDecoration(
+                                    color: greyText.withOpacity(.3),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: minimalPadding + 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          service.currentSong!.title,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: minimalPadding + 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 210,
+                              child: Text(
+                                service.currentSong!.title,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            separateVertical(2),
+                            Text(
+                              service.currentSong!.subTitle,
+                              style: const TextStyle(
+                                color: greyText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
                         ),
-                        separateVertical(2),
-                        Text(
-                          service.currentSong!.subTitle,
-                          style: const TextStyle(
-                            color: greyText,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      separateHorizontal(20),
+                    ],
                   ),
-                  separateHorizontal(20),
-                  const Icon(
-                    Icons.favorite,
-                    color: green,
-                    size: 18,
+                  Positioned(
+                    right: 0,
+                    top: 20,
+                    bottom: 20,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            spreadRadius: 10,
+                            offset: Offset(0, 0),
+                            color: black,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.favorite,
+                        color: green,
+                        size: 18,
+                      ),
+                    ),
                   ),
                 ],
               ),
