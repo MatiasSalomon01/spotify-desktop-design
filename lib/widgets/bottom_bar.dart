@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/pages/full_screen.dart';
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../services/general_service.dart';
 import 'custom_slider.dart';
 
 class BottomBar extends StatelessWidget {
@@ -11,6 +13,7 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
     return Positioned(
       bottom: 0,
       child: Container(
@@ -27,13 +30,18 @@ class BottomBar extends StatelessWidget {
                 icon: FontAwesomeIcons.upRightAndDownLeftFromCenter,
                 tip: 'Pantalla Completa',
                 size: 13,
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const FullScreen(color: purple),
-                    ),
-                  );
-                },
+                onTap: service.currentSong == null
+                    ? null
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => FullScreen(
+                              color: purple,
+                              data: service.currentSong,
+                            ),
+                          ),
+                        );
+                      },
               ),
             ),
             separateHorizontal(10),
@@ -295,74 +303,78 @@ class SongContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<GeneralService>(context);
     return Expanded(
       child: Container(
         // color: green,
         padding: const EdgeInsets.only(left: 4),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Hero(
-                tag: 'image',
-                child: ClipRRect(
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
-                    height: 55,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      return Container(
-                        height: 55,
-                        width: 57,
-                        decoration: BoxDecoration(
-                          color: greyText.withOpacity(.3),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: minimalPadding + 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: service.currentSong == null
+            ? Container()
+            : ListView(
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  const Text(
-                    'Entre Caníbales - Remasterizado 2007',
-                    maxLines: 1,
-                    style: TextStyle(
-                      overflow: TextOverflow.ellipsis,
-                      color: white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Hero(
+                      tag: 'image',
+                      child: ClipRRect(
+                        child: Image.network(
+                          service.currentSong!.url,
+                          height: 55,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            return Container(
+                              height: 55,
+                              width: 57,
+                              decoration: BoxDecoration(
+                                color: greyText.withOpacity(.3),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: child,
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
-                  separateVertical(2),
-                  const Text(
-                    'Soda Stereo',
-                    style: TextStyle(
-                      color: greyText,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 11,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: minimalPadding + 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          service.currentSong!.title,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                        separateVertical(2),
+                        Text(
+                          service.currentSong!.subTitle,
+                          style: const TextStyle(
+                            color: greyText,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  separateHorizontal(20),
+                  const Icon(
+                    Icons.favorite,
+                    color: green,
+                    size: 18,
                   ),
                 ],
               ),
-            ),
-            const Icon(
-              Icons.favorite,
-              color: green,
-              size: 18,
-            )
-          ],
-        ),
       ),
     );
   }

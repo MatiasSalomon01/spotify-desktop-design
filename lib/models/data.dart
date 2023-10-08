@@ -5,12 +5,13 @@ class Data {
   String addedDate;
   String played;
 
-  Data(
-      {required this.url,
-      required this.title,
-      required this.subTitle,
-      required this.addedDate,
-      required this.played});
+  Data({
+    required this.url,
+    required this.title,
+    required this.subTitle,
+    required this.addedDate,
+    required this.played,
+  });
 }
 
 final data = [

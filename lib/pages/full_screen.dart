@@ -1,14 +1,24 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/widgets/custom_slider.dart';
 
 import '../constants/colors.dart';
 import '../constants/values.dart';
+import '../models/data.dart';
+import '../services/general_service.dart';
 import '../widgets/bottom_bar.dart';
 
 class FullScreen extends StatefulWidget {
   final Color color;
-  const FullScreen({super.key, required this.color});
+  final Data? data;
+  const FullScreen({
+    super.key,
+    required this.color,
+    required this.data,
+  });
 
   @override
   State<FullScreen> createState() => _FullScreenState();
@@ -19,11 +29,22 @@ class _FullScreenState extends State<FullScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
     return Scaffold(
-      backgroundColor: widget.color,
-      // backgroundColor: Color(0xff6e3932),
+      // backgroundColor: widget.color,
+      // backgroundColor: Color.fromARGB(255, 24, 20, 19),
       body: Stack(
         children: [
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Image.network(
+              colorBlendMode: BlendMode.darken,
+              widget.data!.url,
+              width: size.width,
+              fit: BoxFit.cover,
+              color: Colors.black.withOpacity(.75),
+            ),
+          ),
           Positioned(
             bottom: 5,
             left: 60,
@@ -39,7 +60,7 @@ class _FullScreenState extends State<FullScreen> {
                         tag: 'image',
                         child: ClipRRect(
                           child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FSodaCanci.jpg?alt=media&token=710953c8-7801-4647-8a24-ce69974b55a6&_gl=1*1vam2uq*_ga*MjA3NjE3OTM0NC4xNjc3NDIxNDM3*_ga_CW55HF8NVT*MTY5NjIwODkzOC45LjEuMTY5NjIwODk2Mi4zNi4wLjA.',
+                            widget.data!.url,
                             height: 100,
                             fit: BoxFit.cover,
                             loadingBuilder: (context, child, loadingProgress) {
@@ -61,10 +82,10 @@ class _FullScreenState extends State<FullScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Entre Caníbales - Remasterizado 2007',
+                            Text(
+                              widget.data!.title,
                               maxLines: 2,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 color: white,
                                 fontWeight: FontWeight.w600,
@@ -72,10 +93,10 @@ class _FullScreenState extends State<FullScreen> {
                               ),
                             ),
                             separateVertical(2),
-                            const Text(
-                              'Soda Stereo',
+                            Text(
+                              widget.data!.subTitle,
                               maxLines: 1,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: greyText,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,

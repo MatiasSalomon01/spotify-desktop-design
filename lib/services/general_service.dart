@@ -56,13 +56,26 @@ class GeneralService extends ChangeNotifier {
 
   List<Widget> generateRows(Size size) {
     List<Widget> widgets = [];
-
     for (var i = 0; i < data2.length; i++) {
-      var widget = CustomTableRow(index: i, size: size);
+      var widget = CustomTableRow(
+        index: i,
+        size: size,
+        data: data2[i],
+      );
       widgets.add(widget);
     }
 
     return widgets;
+  }
+
+  //Song selected
+  Data? _currentSong;
+
+  Data? get currentSong => _currentSong;
+
+  set currentSong(Data? value) {
+    _currentSong = value;
+    notifyListeners();
   }
 }
 
