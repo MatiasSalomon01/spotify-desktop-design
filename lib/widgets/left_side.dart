@@ -217,7 +217,7 @@ class Library extends StatelessWidget {
                           margin: !service.isScrolling
                               ? const EdgeInsets.only(left: 15, right: 28)
                               : EdgeInsets.zero,
-                          color: white,
+                          color: white.withOpacity(.1),
                           height: .1,
                         ),
                       ],

@@ -202,8 +202,8 @@ class Table extends StatelessWidget {
             ),
           ),
         ),
-        const Divider(
-          color: white,
+        Divider(
+          color: white.withOpacity(.1),
           indent: 30,
           endIndent: 30,
           thickness: .1,

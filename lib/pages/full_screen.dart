@@ -46,7 +46,7 @@ class _FullScreenState extends State<FullScreen> {
             ),
           ),
           Positioned(
-            bottom: 5,
+            bottom: 20,
             left: 60,
             right: 60,
             child: SizedBox(
