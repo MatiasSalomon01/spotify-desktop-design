@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_desktop/widgets/custom_material_button.dart';
+import 'package:spotify_desktop/widgets/search_screen.dart';
 import 'package:spotify_desktop/widgets/sort_content.dart';
 
 import '../constants/colors.dart';
@@ -20,6 +21,7 @@ class MiddleSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<GeneralService>(context);
     return Expanded(
       flex: 3,
       child: Container(
@@ -32,38 +34,40 @@ class MiddleSide extends StatelessWidget {
           borderRadius: BorderRadius.circular(minimalPadding),
           color: grey,
         ),
-        child: ListView(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: 550,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [darkColor, grey],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: const [.5, 1]),
-                    borderRadius: BorderRadius.circular(minimalPadding),
+        child: service.currentRoute == Routes.home
+            ? ListView(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: 550,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [darkColor, grey],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: const [.5, 1]),
+                          borderRadius: BorderRadius.circular(minimalPadding),
+                        ),
+                      ),
+                      Header(
+                        lightColor: lightColor,
+                        darkColor: darkColor,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 345),
+                        child: FuncButtons(),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 455),
+                        child: Table(),
+                      ),
+                      const UpperButtons(),
+                    ],
                   ),
-                ),
-                Header(
-                  lightColor: lightColor,
-                  darkColor: darkColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 345),
-                  child: FuncButtons(),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 455),
-                  child: Table(),
-                ),
-                const UpperButtons(),
-              ],
-            ),
-          ],
-        ),
+                ],
+              )
+            : const SearchScreen(),
       ),
     );
   }
@@ -257,7 +261,7 @@ class UpperButtons extends StatelessWidget {
           CustomMaterialButton(
             icon: Icons.chevron_left_rounded,
             onPressed: () {},
-            color: black,
+            color: black.withOpacity(.7),
             child: const Icon(
               Icons.chevron_left_rounded,
               color: white,
@@ -268,7 +272,7 @@ class UpperButtons extends StatelessWidget {
           CustomMaterialButton(
             icon: Icons.chevron_right_rounded,
             onPressed: () {},
-            color: const Color(0xff241a46),
+            color: black.withOpacity(.4),
             child: const Icon(
               Icons.chevron_right_rounded,
               color: white,
@@ -279,7 +283,7 @@ class UpperButtons extends StatelessWidget {
           CustomMaterialButton(
             icon: Icons.person_2_outlined,
             onPressed: () {},
-            color: const Color(0xff241a46),
+            color: black.withOpacity(.4),
             padding: 15,
             child: const Icon(
               Icons.person_2_outlined,
