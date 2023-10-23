@@ -28,7 +28,6 @@ class HomePage extends StatelessWidget {
             child: Stack(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const MoreButton(headerHeight: headerHeight),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
@@ -38,6 +37,7 @@ class HomePage extends StatelessWidget {
                     //   const RightSide(),
                   ],
                 ),
+                const MoreButton(headerHeight: headerHeight),
                 const BottomBar()
               ],
             ),

@@ -9,6 +9,7 @@ class CustomMaterialButton extends StatelessWidget {
   final Color? color;
   final Widget? child;
   final double padding;
+  final Color hoverColor;
   const CustomMaterialButton({
     super.key,
     required this.icon,
@@ -17,6 +18,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.color,
     this.child,
     this.padding = 10.0,
+    this.hoverColor = hoverGrey,
   });
 
   @override
@@ -35,7 +37,7 @@ class CustomMaterialButton extends StatelessWidget {
       ),
       child: MaterialButton(
         color: color,
-        hoverColor: hoverGrey,
+        hoverColor: hoverColor,
         splashColor: tranparent,
         highlightColor: tranparent,
         elevation: 0,
