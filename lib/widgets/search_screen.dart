@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_desktop/constants/values.dart';
 import 'package:spotify_desktop/widgets/custom_material_button.dart';
 
 import '../constants/colors.dart';
+import '../services/general_service.dart';
 import 'custom_text_field.dart';
 import 'middle_side.dart';
 
@@ -23,7 +25,15 @@ class SearchScreen extends StatelessWidget {
               CustomTextField(),
             ],
           ),
-          const TitleSection(text: 'Búsquedas recientes'),
+          separateVertical(20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              TitleSection(text: 'Búsquedas recientes'),
+              ShowAllTextButton(),
+            ],
+          ),
           separateVertical(20),
           const RecentSearches(),
           // separateVertical(20),
@@ -36,37 +46,70 @@ class SearchScreen extends StatelessWidget {
   }
 }
 
+class ShowAllTextButton extends StatefulWidget {
+  const ShowAllTextButton({
+    super.key,
+  });
+
+  @override
+  State<ShowAllTextButton> createState() => _ShowAllTextButtonState();
+}
+
+class _ShowAllTextButtonState extends State<ShowAllTextButton> {
+  bool isHover = false;
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (event) => setState(() => isHover = true),
+      onExit: (event) => setState(() => isHover = false),
+      cursor: SystemMouseCursors.click,
+      child: Text(
+        'Mostrar todo',
+        style: TextStyle(
+          decoration: isHover ? TextDecoration.underline : TextDecoration.none,
+          color: greyText,
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+          decorationThickness: 2,
+        ),
+      ),
+    );
+  }
+}
+
 class RecentSearches extends StatelessWidget {
   const RecentSearches({
     super.key,
   });
 
+  int getColumnsQuantity(BuildContext context) {
+    final service = Provider.of<GeneralService>(context, listen: false);
+    return service.isLibraryMin
+        ? 6
+        : !service.isLibraryExpanded
+            ? 5
+            : 3;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
 
     return Expanded(
       child: GridView.builder(
-        itemCount: 2,
+        itemCount: getColumnsQuantity(context),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: size.width > 1231
-              ? 5
-              : size.width < 1231
-                  ? size.width < 800
-                      ? size.width < 800
-                          ? 2
-                          : 3
-                      : 4
-                  : 4,
-          mainAxisSpacing: 10,
-          childAspectRatio: .65,
-          crossAxisSpacing: 10,
+          crossAxisCount: getColumnsQuantity(context),
+          mainAxisSpacing: 25,
+          crossAxisSpacing: 25,
+          mainAxisExtent: 250,
         ),
         itemBuilder: (context, index) {
+          var isEven = index % 2 == 0;
           return Container(
-            // margin: const EdgeInsets.only(right: 15),
             decoration: BoxDecoration(
-              color: hoverGrey,
+              color: const Color(0xff181818),
               borderRadius: BorderRadius.circular(minimalPadding),
             ),
             child: Stack(
@@ -74,23 +117,32 @@ class RecentSearches extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(bottom: 25, top: 15),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Center(
-                        child: CircleAvatar(
-                          radius: 80,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.network(
-                              "https://random.imagecdn.app/20$index/20$index",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        child: !isEven
+                            ? CircleAvatar(
+                                radius: 75,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.network(
+                                    "https://random.imagecdn.app/20$index/20$index",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  "https://random.imagecdn.app/20$index/20$index",
+                                  height: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                       ),
-                      // separateVertical(20),
-                      const Spacer(),
+                      separateVertical(15),
+                      // const Spacer(),
                       const Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Text(
@@ -116,7 +168,7 @@ class RecentSearches extends StatelessWidget {
                   child: CustomMaterialButton(
                     icon: Icons.close,
                     onPressed: () {},
-                    color: grey,
+                    color: grey.withOpacity(.3),
                     hoverColor: black,
                   ),
                 ),
