@@ -97,6 +97,11 @@ class ExploreAll extends StatelessWidget {
         crossAxisSpacing: 25,
       ),
       itemBuilder: (context, index) {
+        // var number = index > 9
+        //     ? index - 10
+        //     : index > 99
+        //         ? index - 100
+        //         : index;
         return Container(
           decoration: BoxDecoration(
             color: Color(
@@ -127,8 +132,7 @@ class ExploreAll extends StatelessWidget {
                   child: Transform.rotate(
                     angle: .5,
                     child: Image.network(
-                      "https://random.imagecdn.app/8$index/8$index",
-                      // fit: BoxFit.cover,
+                      "https://random.imagecdn.app/80/80",
                     ),
                   ),
                 ),
