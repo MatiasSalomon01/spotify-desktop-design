@@ -35,40 +35,58 @@ class MiddleSide extends StatelessWidget {
           color: grey,
         ),
         child: service.currentRoute == Routes.home
-            ? ListView(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 550,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [darkColor, grey],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [.5, 1]),
-                          borderRadius: BorderRadius.circular(minimalPadding),
-                        ),
-                      ),
-                      Header(
-                        lightColor: lightColor,
-                        darkColor: darkColor,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 345),
-                        child: FuncButtons(),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 455),
-                        child: Table(),
-                      ),
-                      const UpperButtons(),
-                    ],
-                  ),
-                ],
-              )
-            : const SearchScreen(),
+            ? Home(darkColor: darkColor, lightColor: lightColor)
+            : service.currentMiddleRoute == MiddleSideRoutes.search
+                ? const SearchScreen()
+                : const ShowAllData(),
       ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({
+    super.key,
+    required this.darkColor,
+    required this.lightColor,
+  });
+
+  final Color darkColor;
+  final Color lightColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: 550,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [darkColor, grey],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [.5, 1]),
+                borderRadius: BorderRadius.circular(minimalPadding),
+              ),
+            ),
+            Header(
+              lightColor: lightColor,
+              darkColor: darkColor,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 345),
+              child: FuncButtons(),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 455),
+              child: Table(),
+            ),
+            const UpperButtons(),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -412,6 +430,31 @@ class Header extends StatelessWidget {
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class ShowAllData extends StatelessWidget {
+  const ShowAllData({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              TitleSection(text: 'Búsquedas recientes'),
+              ShowAllTextButton(),
+            ],
+          ),
+          separateVertical(10),
+          const RecentSearches(),
         ],
       ),
     );

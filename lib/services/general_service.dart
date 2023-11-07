@@ -25,6 +25,15 @@ class GeneralService extends ChangeNotifier {
     notifyListeners();
   }
 
+  MiddleSideRoutes _currentMiddleRoute = MiddleSideRoutes.search;
+
+  MiddleSideRoutes get currentMiddleRoute => _currentMiddleRoute;
+
+  set currentMiddleRoute(MiddleSideRoutes value) {
+    _currentMiddleRoute = value;
+    notifyListeners();
+  }
+
   bool _isLibraryExpanded = false;
 
   bool get isLibraryExpanded => _isLibraryExpanded;
@@ -80,3 +89,5 @@ class GeneralService extends ChangeNotifier {
 }
 
 enum Routes { home, search }
+
+enum MiddleSideRoutes { search, showAll }

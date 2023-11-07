@@ -59,18 +59,29 @@ class _ShowAllTextButtonState extends State<ShowAllTextButton> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<GeneralService>(context);
+
     return MouseRegion(
       onEnter: (event) => setState(() => isHover = true),
       onExit: (event) => setState(() => isHover = false),
       cursor: SystemMouseCursors.click,
-      child: Text(
-        'Mostrar todo',
-        style: TextStyle(
-          decoration: isHover ? TextDecoration.underline : TextDecoration.none,
-          color: greyText,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-          decorationThickness: 2,
+      child: GestureDetector(
+        onTap: () {
+          service.currentMiddleRoute =
+              service.currentMiddleRoute == MiddleSideRoutes.search
+                  ? MiddleSideRoutes.showAll
+                  : MiddleSideRoutes.search;
+        },
+        child: Text(
+          'Mostrar todo',
+          style: TextStyle(
+            decoration:
+                isHover ? TextDecoration.underline : TextDecoration.none,
+            color: greyText,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            decorationThickness: 2,
+          ),
         ),
       ),
     );
