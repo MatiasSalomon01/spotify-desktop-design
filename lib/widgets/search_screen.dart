@@ -73,7 +73,9 @@ class _ShowAllTextButtonState extends State<ShowAllTextButton> {
                   : MiddleSideRoutes.search;
         },
         child: Text(
-          'Mostrar todo',
+          service.currentMiddleRoute == MiddleSideRoutes.search
+              ? 'Mostrar todo'
+              : 'Volver',
           style: TextStyle(
             decoration:
                 isHover ? TextDecoration.underline : TextDecoration.none,
@@ -109,7 +111,9 @@ class RecentSearches extends StatelessWidget {
 
     return Expanded(
       child: GridView.builder(
-        itemCount: getColumnsQuantity(context),
+        itemCount: service.currentMiddleRoute == MiddleSideRoutes.search
+            ? getColumnsQuantity(context)
+            : 12,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: getColumnsQuantity(context),
           mainAxisSpacing: 25,
