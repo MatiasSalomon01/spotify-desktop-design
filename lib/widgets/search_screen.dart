@@ -35,7 +35,7 @@ class SearchScreen extends StatelessWidget {
             ],
           ),
           separateVertical(20),
-          const RecentSearches(),
+          const SizedBox(height: 270, child: RecentSearches()),
           // separateVertical(20),
           const TitleSection(text: 'Explorar Todo'),
           separateVertical(10),
@@ -109,89 +109,88 @@ class RecentSearches extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
 
-    return Expanded(
-      child: GridView.builder(
-        itemCount: service.currentMiddleRoute == MiddleSideRoutes.search
-            ? getColumnsQuantity(context)
-            : 12,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: getColumnsQuantity(context),
-          mainAxisSpacing: 25,
-          crossAxisSpacing: 25,
-          mainAxisExtent: 250,
-        ),
-        itemBuilder: (context, index) {
-          var isEven = index % 2 == 0;
-          return Container(
-            decoration: BoxDecoration(
-              color: const Color(0xff181818),
-              borderRadius: BorderRadius.circular(minimalPadding),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 25, top: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Center(
-                        child: !isEven
-                            ? CircleAvatar(
-                                radius: 75,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    "https://random.imagecdn.app/20$index/20$index",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: service.currentMiddleRoute == MiddleSideRoutes.search
+          ? getColumnsQuantity(context)
+          : 12,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: getColumnsQuantity(context),
+        mainAxisSpacing: 25,
+        crossAxisSpacing: 25,
+        mainAxisExtent: 250,
+      ),
+      itemBuilder: (context, index) {
+        var isEven = index % 2 == 0;
+        return Container(
+          decoration: BoxDecoration(
+            color: const Color(0xff181818),
+            borderRadius: BorderRadius.circular(minimalPadding),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 25, top: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: !isEven
+                          ? CircleAvatar(
+                              radius: 75,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
                                 child: Image.network(
                                   "https://random.imagecdn.app/20$index/20$index",
-                                  height: 150,
                                   fit: BoxFit.cover,
                                 ),
                               ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                "https://random.imagecdn.app/20$index/20$index",
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                    ),
+                    separateVertical(15),
+                    // const Spacer(),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Frank Sinatra',
+                        style: TextStyle(
+                            color: white, fontWeight: FontWeight.bold),
                       ),
-                      separateVertical(15),
-                      // const Spacer(),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Text(
-                          'Frank Sinatra',
-                          style: TextStyle(
-                              color: white, fontWeight: FontWeight.bold),
-                        ),
+                    ),
+                    separateVertical(5),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Artista',
+                        style: TextStyle(color: greyText),
                       ),
-                      separateVertical(5),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Text(
-                          'Artista',
-                          style: TextStyle(color: greyText),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: CustomMaterialButton(
-                    icon: Icons.close,
-                    onPressed: () {},
-                    color: grey.withOpacity(.3),
-                    hoverColor: black,
-                  ),
+              ),
+              Positioned(
+                right: 5,
+                top: 5,
+                child: CustomMaterialButton(
+                  icon: Icons.close,
+                  onPressed: () {},
+                  color: grey.withOpacity(.3),
+                  hoverColor: black,
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

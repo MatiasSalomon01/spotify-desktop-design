@@ -454,7 +454,7 @@ class ShowAllData extends StatelessWidget {
             ],
           ),
           separateVertical(10),
-          const RecentSearches(),
+          const Expanded(child: RecentSearches()),
         ],
       ),
     );
