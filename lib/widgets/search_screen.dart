@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_desktop/constants/values.dart';
@@ -16,8 +18,8 @@ class SearchScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: const [
@@ -36,12 +38,105 @@ class SearchScreen extends StatelessWidget {
           ),
           separateVertical(20),
           const SizedBox(height: 270, child: RecentSearches()),
-          // separateVertical(20),
           const TitleSection(text: 'Explorar Todo'),
-          separateVertical(10),
-          // separateVertical(20),
+          separateVertical(20),
+          const ExploreAll(),
+          // Wrap(
+          //   children: [
+          //     ...List.generate(
+          //       20,
+          //       (index) => Container(
+          //         height: 215,
+          //         width: 215,
+          //         color: Color(Random().nextInt(0xffffffff)),
+          //         margin: EdgeInsets.all(15),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          separateVertical(20),
         ],
       ),
+    );
+  }
+}
+
+class ExploreAll extends StatelessWidget {
+  const ExploreAll({
+    super.key,
+  });
+  int getColumnsQuantity(BuildContext context) {
+    final service = Provider.of<GeneralService>(context, listen: false);
+    return service.isLibraryMin
+        ? 6
+        : !service.isLibraryExpanded
+            ? 5
+            : 3;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final service = Provider.of<GeneralService>(context);
+    final widthValue = size.width -
+        (size.width > 1033 && service.isLibraryExpanded
+            ? 600
+            : service.isLibraryMin
+                ? 70
+                : size.width > 1033 && !service.isLibraryMin
+                    ? 275
+                    : 70);
+    print(widthValue);
+    return GridView.builder(
+      itemCount: exploreTitles.length,
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        // crossAxisCount: getColumnsQuantity(context),
+        crossAxisCount: (widthValue / 200).floor(),
+        mainAxisSpacing: 25,
+        crossAxisSpacing: 25,
+      ),
+      itemBuilder: (context, index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Color(
+              Random().nextInt(0xffffffff),
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ClipRRect(
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 15,
+                  top: 10,
+                  child: Wrap(children: [
+                    Text(
+                      exploreTitles[index],
+                      style: const TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ]),
+                ),
+                Positioned(
+                  right: -10,
+                  bottom: -10,
+                  child: Transform.rotate(
+                    angle: .5,
+                    child: Image.network(
+                      "https://random.imagecdn.app/8$index/8$index",
+                      // fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
