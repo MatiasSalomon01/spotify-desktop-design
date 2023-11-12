@@ -19,7 +19,6 @@ class SearchScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: const [
@@ -37,23 +36,10 @@ class SearchScreen extends StatelessWidget {
             ],
           ),
           separateVertical(20),
-          const SizedBox(height: 270, child: RecentSearches()),
+          const SizedBox(height: 300, child: RecentSearches()),
           const TitleSection(text: 'Explorar Todo'),
           separateVertical(20),
           const ExploreAll(),
-          // Wrap(
-          //   children: [
-          //     ...List.generate(
-          //       20,
-          //       (index) => Container(
-          //         height: 215,
-          //         width: 215,
-          //         color: Color(Random().nextInt(0xffffffff)),
-          //         margin: EdgeInsets.all(15),
-          //       ),
-          //     ),
-          //   ],
-          // ),
           separateVertical(20),
         ],
       ),
@@ -86,22 +72,15 @@ class ExploreAll extends StatelessWidget {
                 : size.width > 1033 && !service.isLibraryMin
                     ? 275
                     : 70);
-    print(widthValue);
     return GridView.builder(
       itemCount: exploreTitles.length,
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        // crossAxisCount: getColumnsQuantity(context),
         crossAxisCount: (widthValue / 200).floor(),
         mainAxisSpacing: 25,
         crossAxisSpacing: 25,
       ),
       itemBuilder: (context, index) {
-        // var number = index > 9
-        //     ? index - 10
-        //     : index > 99
-        //         ? index - 100
-        //         : index;
         return Container(
           decoration: BoxDecoration(
             color: Color(
@@ -109,13 +88,13 @@ class ExploreAll extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: ClipRRect(
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 15,
-                  top: 10,
-                  child: Wrap(children: [
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 15, left: 15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                     Text(
                       exploreTitles[index],
                       style: const TextStyle(
@@ -124,20 +103,20 @@ class ExploreAll extends StatelessWidget {
                         fontSize: 22,
                       ),
                     ),
-                  ]),
+                  ],
                 ),
-                Positioned(
-                  right: -10,
-                  bottom: -10,
-                  child: Transform.rotate(
-                    angle: .5,
-                    child: Image.network(
-                      "https://random.imagecdn.app/80/80",
-                    ),
+              ),
+              Positioned(
+                right: -10,
+                bottom: -10,
+                child: Transform.rotate(
+                  angle: .5,
+                  child: Image.network(
+                    "https://random.imagecdn.app/80/80",
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -217,7 +196,7 @@ class RecentSearches extends StatelessWidget {
         crossAxisCount: getColumnsQuantity(context),
         mainAxisSpacing: 25,
         crossAxisSpacing: 25,
-        mainAxisExtent: 250,
+        mainAxisExtent: 300,
       ),
       itemBuilder: (context, index) {
         var isEven = index % 2 == 0;
@@ -229,7 +208,7 @@ class RecentSearches extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.only(bottom: 25, top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -237,7 +216,7 @@ class RecentSearches extends StatelessWidget {
                     Center(
                       child: !isEven
                           ? CircleAvatar(
-                              radius: 75,
+                              radius: 190 / 2,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: Image.network(
@@ -250,17 +229,16 @@ class RecentSearches extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: Image.network(
                                 "https://random.imagecdn.app/20$index/20$index",
-                                height: 150,
+                                height: 190,
                                 fit: BoxFit.cover,
                               ),
                             ),
                     ),
-                    separateVertical(15),
-                    // const Spacer(),
+                    const Spacer(),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
                       child: Text(
-                        'Frank Sinatra',
+                        'Titulo',
                         style: TextStyle(
                             color: white, fontWeight: FontWeight.bold),
                       ),
@@ -269,10 +247,11 @@ class RecentSearches extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
                       child: Text(
-                        'Artista',
+                        'Subtitulo',
                         style: TextStyle(color: greyText),
                       ),
                     ),
+                    const Spacer(),
                   ],
                 ),
               ),
