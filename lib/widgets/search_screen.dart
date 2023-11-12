@@ -73,6 +73,7 @@ class ExploreAll extends StatelessWidget {
                     ? 275
                     : 70);
     return GridView.builder(
+      physics: NeverScrollableScrollPhysics(),
       itemCount: exploreTitles.length,
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -91,7 +92,7 @@ class ExploreAll extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 15),
+                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
