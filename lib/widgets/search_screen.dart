@@ -73,11 +73,11 @@ class ExploreAll extends StatelessWidget {
                     ? 275
                     : 70);
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: exploreTitles.length,
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: (widthValue / 200).floor(),
+        crossAxisCount: (widthValue / 250).floor(),
         mainAxisSpacing: 25,
         crossAxisSpacing: 25,
       ),
@@ -185,16 +185,25 @@ class RecentSearches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final service = Provider.of<GeneralService>(context);
-
+    final widthValue = size.width -
+        (size.width > 1033 && service.isLibraryExpanded
+            ? 600
+            : service.isLibraryMin
+                ? 70
+                : size.width > 1033 && !service.isLibraryMin
+                    ? 275
+                    : 70);
     return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: service.currentMiddleRoute == MiddleSideRoutes.search
           ? getColumnsQuantity(context)
           : 12,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: getColumnsQuantity(context),
+        // crossAxisCount: (widthValue / 200).floor(),
         mainAxisSpacing: 25,
         crossAxisSpacing: 25,
         mainAxisExtent: 300,
@@ -204,17 +213,19 @@ class RecentSearches extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             color: const Color(0xff181818),
+            // color: Colors.red,
             borderRadius: BorderRadius.circular(minimalPadding),
           ),
           child: Stack(
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Center(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 15, right: 15, left: 15),
+                    child: Center(
                       child: !isEven
                           ? CircleAvatar(
                               radius: 190 / 2,
@@ -235,26 +246,26 @@ class RecentSearches extends StatelessWidget {
                               ),
                             ),
                     ),
-                    const Spacer(),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Titulo',
-                        style: TextStyle(
-                            color: white, fontWeight: FontWeight.bold),
-                      ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      'Titulo #${index + 1}',
+                      style: const TextStyle(
+                          color: white, fontWeight: FontWeight.bold),
                     ),
-                    separateVertical(5),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Subtitulo',
-                        style: TextStyle(color: greyText),
-                      ),
+                  ),
+                  separateVertical(5),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Text(
+                      'Subtitulo',
+                      style: TextStyle(color: greyText),
                     ),
-                    const Spacer(),
-                  ],
-                ),
+                  ),
+                  const Spacer(),
+                ],
               ),
               Positioned(
                 right: 5,
