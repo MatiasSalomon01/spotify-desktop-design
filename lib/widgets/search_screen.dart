@@ -82,11 +82,10 @@ class ExploreAll extends StatelessWidget {
         crossAxisSpacing: 25,
       ),
       itemBuilder: (context, index) {
+        var color = Random().nextInt(0xffffffff);
         return Container(
           decoration: BoxDecoration(
-            color: Color(
-              Random().nextInt(0xffffffff),
-            ),
+            color: Color(color),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Stack(
@@ -114,6 +113,14 @@ class ExploreAll extends StatelessWidget {
                   angle: .5,
                   child: Image.network(
                     "https://random.imagecdn.app/80/80",
+                    loadingBuilder: (_, child, __) {
+                      return Container(
+                        height: 80,
+                        width: 80,
+                        color: Color(color).withOpacity(.3),
+                        child: child,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -229,6 +236,7 @@ class RecentSearches extends StatelessWidget {
                       child: !isEven
                           ? CircleAvatar(
                               radius: 190 / 2,
+                              backgroundColor: selected,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: Image.network(
@@ -243,6 +251,14 @@ class RecentSearches extends StatelessWidget {
                                 "https://random.imagecdn.app/20$index/20$index",
                                 height: 190,
                                 fit: BoxFit.cover,
+                                loadingBuilder: (_, child, __) {
+                                  return Container(
+                                    height: 190,
+                                    width: double.infinity,
+                                    color: selected,
+                                    child: child,
+                                  );
+                                },
                               ),
                             ),
                     ),
